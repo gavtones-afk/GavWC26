@@ -1,10 +1,8 @@
-// Netlify function -> /.netlify/functions/live  (and /api/live via netlify.toml redirect)
+// Vercel serverless function -> /api/live
 //
-// Data sources (set either or both as environment variables in Netlify):
+// Data sources (set either or both in Vercel -> Environment Variables):
 //   FOOTBALL_DATA_TOKEN  -> reliable live scores, results & standings (free tier at football-data.org)
 //   ANTHROPIC_API_KEY    -> optional: Golden Boot / assists / cards via web search (best-effort)
-//
-// With at least one set, /api/live returns { matches, stats, source }.
 
 const FD = "https://api.football-data.org/v4";
 const MODEL = "claude-sonnet-4-20250514";
@@ -23,33 +21,27 @@ function mapMatch(m) {
   };
 }
 
-exports.handler = async (event) => {
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Methods": "POST, OPTIONS"
-  };
-  if (event.httpMethod === "OPTIONS") return { statusCode: 200, headers, body: "" };
-  if (event.httpMethod !== "POST") return { statusCode: 405, headers, body: JSON.stringify({ error: "POST only" }) };
+export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
   const FD_TOKEN = process.env.FOOTBALL_DATA_TOKEN;
   const AN_KEY = process.env.ANTHROPIC_API_KEY;
   if (!FD_TOKEN && !AN_KEY) {
-    return { statusCode: 500, headers, body: JSON.stringify({ error: "No data source configured. Add FOOTBALL_DATA_TOKEN (recommended) and/or ANTHROPIC_API_KEY in Netlify, then redeploy.", matches: [], stats: {} }) };
+    return res.status(500).json({ error: "No data source configured. Add FOOTBALL_DATA_TOKEN (recommended) and/or ANTHROPIC_API_KEY in Vercel, then redeploy.", matches: [], stats: {} });
   }
 
-  let date = new Date().toDateString();
-  try { date = JSON.parse(event.body || "{}").date || date; } catch (_) {}
-
+  const date = (req.body && req.body.date) || new Date().toDateString();
   const out = { matches: [], stats: { scorers: [], assists: [], cards: [], cleanSheets: [] }, source: [], asOf: new Date().toISOString() };
 
-  // 1) football-data.org — live + finished matches (reliable)
   if (FD_TOKEN) {
     try {
       const r = await fetch(`${FD}/competitions/WC/matches?status=IN_PLAY,PAUSED,FINISHED`, { headers: { "X-Auth-Token": FD_TOKEN } });
       if (r.ok) { const d = await r.json(); out.matches = (d.matches || []).map(mapMatch); out.source.push("football-data"); }
     } catch (_) {}
-    // top scorers (works on paid tier; skipped quietly if your tier doesn't allow it)
     try {
       const r = await fetch(`${FD}/competitions/WC/scorers?limit=15`, { headers: { "X-Auth-Token": FD_TOKEN } });
       if (r.ok) {
@@ -60,7 +52,6 @@ exports.handler = async (event) => {
     } catch (_) {}
   }
 
-  // 2) Anthropic web search — optional enrichment (cards/assists; matches+scorers only if football-data gave none)
   if (AN_KEY) {
     try {
       const prompt =
@@ -87,5 +78,5 @@ exports.handler = async (event) => {
     } catch (_) {}
   }
 
-  return { statusCode: 200, headers, body: JSON.stringify(out) };
-};
+  return res.status(200).json(out);
+}

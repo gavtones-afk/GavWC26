@@ -934,27 +934,33 @@ const refreshBtn=document.getElementById("refresh");
 let refreshing=false;
 refreshBtn.onclick=liveRefresh;
 
-// Your serverless proxy (holds the API key server-side). Works on Vercel as-is,
-// and on Netlify via the /api/live redirect in netlify.toml.
-const LIVE_ENDPOINT="/api/live";
+// Serverless proxy paths (holds the API key server-side). The app tries each in turn,
+// so it works on Vercel (/api/live) and on Netlify (/.netlify/functions/live) with or
+// without the redirect.
+const LIVE_ENDPOINTS=["/api/live","/.netlify/functions/live"];
 
 async function fetchLive(ukToday){
   // returns {ok, matches, stats, problem?}
-  // 1) Preferred: your serverless proxy
-  try{
-    const res=await fetch(LIVE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({date:ukToday})});
+  // 1) Preferred: your serverless proxy — try each known path
+  let sawEndpoint=false;
+  for(const ep of LIVE_ENDPOINTS){
+    let res;
+    try{ res=await fetch(ep,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({date:ukToday})}); }
+    catch(e){ continue; } // network error on this path — try the next
+    if(res.status===404){ continue; } // function not at this path — try the next
+    sawEndpoint=true;
     if(res.ok){
       const d=await res.json();
       const data = Array.isArray(d) ? {matches:d,stats:{}} : {matches:(d&&d.matches)||[],stats:(d&&d.stats)||{},source:(d&&d.source)||[]};
       data.ok=true; return data;
     }
-    // proxy reached but returned an error — diagnose it
+    // function reached but returned an error — diagnose it
     let detail=""; try{ detail=(await res.json()).error||""; }catch(_){}
-    if(res.status===404) return {ok:false, problem:"endpoint", matches:[], stats:{}};
     if(/no data source/i.test(detail)) return {ok:false, problem:"nosource", detail, matches:[], stats:{}};
     if(/api[_ ]?key|token/i.test(detail) || res.status===500) return {ok:false, problem:"key", detail, matches:[], stats:{}};
     return {ok:false, problem:"server", detail, matches:[], stats:{}};
-  }catch(e){ /* network error, or running in the Claude preview without a proxy */ }
+  }
+  if(sawEndpoint===false){ /* nothing answered — fall through to direct (preview) then report endpoint */ }
   // 2) Fallback: direct call (only succeeds inside the Claude preview, not on a live site)
   try{
     const prompt=
@@ -970,7 +976,7 @@ async function fetchLive(ukToday){
     const objStr=(text.match(/\{[\s\S]*\}/)||[null])[0];
     const parsed=objStr?JSON.parse(objStr.replace(/```json|```/g,"").trim()):{};
     return {ok:true, matches:parsed.matches||[], stats:parsed.stats||{}};
-  }catch(e){ return {ok:false, problem:"unreachable", matches:[], stats:{}}; }
+  }catch(e){ return {ok:false, problem: sawEndpoint?"unreachable":"endpoint", matches:[], stats:{}}; }
 }
 
 async function liveRefresh(){
@@ -982,7 +988,7 @@ async function liveRefresh(){
     txt.textContent="Live";
     if(!out.ok){
       const msg={
-        endpoint:"Site is live, but the data function wasn't found at this path. On Netlify it's /.netlify/functions/live — the latest bundle redirects /api/live for you. Re-upload the latest bundle and redeploy.",
+        endpoint:"The live function isn't deployed. In your GitHub repo check that netlify/functions/live.js exists, and in Netlify check Site → Functions lists a 'live' function. If it's missing, the netlify folder didn't get uploaded.",
         nosource:"The data function is running, but no data source is set. Add FOOTBALL_DATA_TOKEN (recommended) and/or ANTHROPIC_API_KEY in your host's environment variables, then redeploy.",
         key:"The data function is running, but its API token isn't set on your host yet. Add it and redeploy.",
         server:"The data function returned an error. Check its logs on your host.",
