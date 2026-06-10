@@ -4,11 +4,16 @@
 //   FOOTBALL_DATA_TOKEN  -> live scores, results & standings (free tier at football-data.org)
 //   ANTHROPIC_API_KEY    -> optional, adds scorer/assist/card leaderboards via web search
 //
-// Returns { matches, stats, source } which the app reads via d.matches.
+// Caching: results are held for CACHE_TTL_MS and shared across everyone, so 100 people
+// tapping Live in the same window trigger ONE upstream call, not 100. Keeps you under
+// football-data's free 10-requests/minute limit when the link is shared widely.
 
 const FD = "https://api.football-data.org/v4";
 const MODEL = "claude-sonnet-4-20250514";
 const STATUS = { IN_PLAY: "live", PAUSED: "ht", FINISHED: "ft" };
+
+const CACHE_TTL_MS = 45 * 1000;     // serve a cached result for 45s
+let CACHE = { at: 0, body: null };  // shared while the function container stays warm
 
 function mapMatch(m) {
   const ft = (m.score && m.score.fullTime) || {};
@@ -38,12 +43,17 @@ exports.handler = async (event) => {
     return { statusCode: 500, headers, body: JSON.stringify({ error: "No data source set. Add FOOTBALL_DATA_TOKEN in Netlify, then redeploy.", matches: [], stats: {} }) };
   }
 
+  // ---- serve from cache if fresh ----
+  const now = Date.now();
+  if (CACHE.body && (now - CACHE.at) < CACHE_TTL_MS) {
+    return { statusCode: 200, headers: Object.assign({ "x-wc26-cache": "hit" }, headers), body: CACHE.body };
+  }
+
   let date = new Date().toDateString();
   try { date = JSON.parse(event.body || "{}").date || date; } catch (_) {}
 
   const out = { matches: [], stats: { scorers: [], assists: [], cards: [] }, source: [], asOf: new Date().toISOString() };
 
-  // football-data.org: live + finished World Cup matches
   if (FD_TOKEN) {
     try {
       const r = await fetch(`${FD}/competitions/WC/matches?status=IN_PLAY,PAUSED,FINISHED`, { headers: { "X-Auth-Token": FD_TOKEN } });
@@ -55,7 +65,6 @@ exports.handler = async (event) => {
     } catch (_) {}
   }
 
-  // optional Anthropic enrichment (and a fallback for matches if football-data gave none)
   if (AN_KEY) {
     try {
       const prompt =
@@ -82,5 +91,8 @@ exports.handler = async (event) => {
     } catch (_) {}
   }
 
-  return { statusCode: 200, headers, body: JSON.stringify(out) };
+  const payload = JSON.stringify(out);
+  // only cache real results (never cache a failed upstream, so the next tap retries)
+  if (out.source.length) CACHE = { at: now, body: payload };
+  return { statusCode: 200, headers, body: payload };
 };
