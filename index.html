@@ -42,7 +42,6 @@
   }
   .wrap{position:relative; z-index:1; max-width:980px; margin:0 auto; padding:0 14px 120px}
 
-  /* ===== Header / scoreboard ===== */
   header{position:sticky; top:0; z-index:40; backdrop-filter:blur(14px);
     background:linear-gradient(180deg,rgba(10,14,26,.92),rgba(10,14,26,.72)); border-bottom:1px solid var(--line)}
   .hbar{max-width:980px; margin:0 auto; padding:12px 14px 10px; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
@@ -59,7 +58,6 @@
   .dotpulse{width:8px;height:8px;border-radius:50%;background:var(--grass);box-shadow:0 0 0 0 rgba(22,198,107,.6);animation:pp 1.8s infinite}
   @keyframes pp{0%{box-shadow:0 0 0 0 rgba(22,198,107,.5)}70%{box-shadow:0 0 0 7px rgba(22,198,107,0)}100%{box-shadow:0 0 0 0 rgba(22,198,107,0)}}
 
-  /* next match countdown strip */
   .next{max-width:980px;margin:0 auto;padding:0 14px 10px}
   .nextcard{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,var(--ink3),var(--ink2));
     border:1px solid var(--line);border-radius:12px;padding:10px 14px}
@@ -68,7 +66,6 @@
   .nextcard .cd{margin-left:auto;font-family:Anton;font-size:22px;letter-spacing:1px;color:#fff}
   .nextcard .cd small{font-family:Inter;font-size:9px;color:var(--muted);letter-spacing:1px;display:block;text-align:right;font-weight:700}
 
-  /* ===== Tabs ===== */
   nav.tabs{position:sticky; top:60px; z-index:30; background:rgba(10,14,26,.9); backdrop-filter:blur(10px);
     display:flex; gap:6px; overflow-x:auto; padding:8px 0 10px; border-bottom:1px solid var(--line); scrollbar-width:none}
   nav.tabs::-webkit-scrollbar{display:none}
@@ -81,7 +78,6 @@
   .eyebrow{font-size:10px;letter-spacing:3px;color:var(--grass);font-weight:800;text-transform:uppercase;margin:18px 2px 0}
   .muted{color:var(--muted)}
 
-  /* ===== Match scoreboard slab ===== */
   .day{font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:800;text-transform:uppercase;margin:20px 2px 8px;
     display:flex;align-items:center;gap:10px}
   .day::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -93,7 +89,7 @@
   .tv{font-size:9.5px;font-weight:800;letter-spacing:.5px;padding:2px 6px;border-radius:5px;border:1px solid var(--line2)}
   .tv.bbc{color:#9fd0ff;border-color:rgba(159,208,255,.45);background:rgba(159,208,255,.10)}
   .tv.itv{color:#ffd24d;border-color:rgba(255,210,77,.45);background:rgba(255,210,77,.10)}
-  .venue{margin-left:auto;text-align:right;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .venue{margin-left:auto;text-align:right;max-width:50%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
   .side{display:flex;align-items:center;gap:9px;min-width:0}
   .side.away{flex-direction:row-reverse;text-align:right}
@@ -104,6 +100,7 @@
   .score{font-family:Anton;font-size:30px;letter-spacing:2px;text-align:center;min-width:84px;line-height:1}
   .ko{font-family:Anton;font-size:17px;color:var(--text);text-align:center;min-width:84px;line-height:1.05}
   .ko small{display:block;font-family:Inter;font-size:9px;color:var(--muted);letter-spacing:1px;font-weight:700;margin-top:3px}
+  .moon{font-size:13px;vertical-align:middle}
   .status{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.5px}
   .status.live{color:var(--amber)} .status.ft{color:var(--muted)}
   .livedot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pp2 1.4s infinite}
@@ -112,7 +109,6 @@
   .followbtn[data-on="1"]{color:var(--gold)}
   .unsocial{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--mag),transparent)}
 
-  /* ===== Standings ===== */
   .grpcard{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r);padding:6px 4px 8px;margin-bottom:14px}
   .grphead{display:flex;align-items:center;gap:8px;padding:8px 12px 6px}
   .grphead b{font-family:Anton;font-size:16px;letter-spacing:1px}
@@ -126,7 +122,33 @@
   tr.qual td.pos{color:var(--grass)}
   .pos{font-weight:800;color:var(--muted);width:22px}
 
-  /* ===== Knockout ===== */
+  .stathero{background:linear-gradient(135deg,var(--ink3),#0d1322);border:1px solid var(--line);border-radius:var(--r);padding:22px 18px;margin:14px 0;text-align:center;position:relative;overflow:hidden}
+  .stathero::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 130% at 50% -25%,rgba(22,198,107,.20),transparent 60%);pointer-events:none}
+  .stathero .big{font-family:Anton;font-size:66px;line-height:.9;letter-spacing:2px;background:linear-gradient(90deg,#fff,var(--grass));-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
+  .stathero .lbl{font-size:11px;letter-spacing:3px;color:var(--muted);font-weight:800;text-transform:uppercase;margin-top:8px}
+  .stathero .sub{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.4}
+  .lead{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r);padding:2px 4px 8px;margin-bottom:14px}
+  .lead h3{font-family:Anton;font-weight:400;font-size:15px;letter-spacing:1px;margin:11px 12px 6px;display:flex;align-items:center;gap:8px}
+  .lead h3 .tagicon{font-size:15px}
+  .lrow{display:flex;align-items:center;gap:10px;padding:9px 12px;position:relative}
+  .lrow + .lrow{border-top:1px solid var(--line)}
+  .lrow .rk{font-family:Anton;font-size:14px;color:var(--muted);width:20px;text-align:center}
+  .lrow.top{background:rgba(255,197,61,.06)} .lrow.top .rk{color:var(--gold)}
+  .lrow .fl{font-size:20px}
+  .lrow .pn{min-width:0;flex:1}
+  .lrow .who{font-weight:700;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lrow .tm{font-size:11px;color:var(--muted);font-weight:600}
+  .lrow .val{font-family:Anton;font-size:19px;letter-spacing:1px}
+  .lrow .bar{position:absolute;left:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--grass),transparent)}
+  .pips{display:flex;gap:3px;align-items:center}
+  .pip{width:8px;height:12px;border-radius:2px;display:inline-block}
+  .pip.y{background:var(--gold)} .pip.r{background:var(--live)}
+  .statgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .csrow{display:flex;align-items:center;gap:8px;padding:8px 12px;font-weight:700;font-size:13.5px}
+  .csrow + .csrow{border-top:1px solid var(--line)}
+  .csrow .val{margin-left:auto;font-family:Anton;font-size:17px}
+  @media(max-width:520px){.statgrid{grid-template-columns:1fr}.stathero .big{font-size:54px}}
+
   .kogrid{display:grid;gap:10px}
   .kround{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
   .kround h3{margin:0 0 4px;font-family:Anton;font-weight:400;font-size:16px;letter-spacing:1px}
@@ -134,7 +156,6 @@
   .kround .kr:first-of-type{border-top:none}
   .kround .kr b{color:var(--text);font-weight:700}
 
-  /* ===== Teams ===== */
   .teamgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
   .tcard{background:var(--ink2);border:1px solid var(--line);border-radius:14px;padding:13px;cursor:pointer;transition:.15s;position:relative}
   .tcard:hover{border-color:var(--line2);transform:translateY(-2px)}
@@ -144,7 +165,6 @@
   .star{position:absolute;top:10px;right:11px;font-size:15px;color:var(--muted2);cursor:pointer}
   .star[data-on="1"]{color:var(--gold)}
 
-  /* ===== Sheet (match/team detail) ===== */
   .scrim{position:fixed;inset:0;z-index:80;background:rgba(4,6,12,.7);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:.2s}
   .scrim[data-open="1"]{opacity:1;pointer-events:auto}
   .sheet{position:fixed;z-index:81;left:50%;bottom:0;width:min(620px,100%);max-height:88vh;overflow:auto;
@@ -159,7 +179,7 @@
   .meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px 0 14px}
   .chip{background:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:11.5px;color:var(--muted);font-weight:700}
   .chip b{color:var(--text)}
-  .tl{position:relative;margin:8px 0 4px;padding-left:0}
+  .tl{position:relative;margin:8px 0 4px}
   .ev{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;font-size:13px}
   .ev:nth-child(odd){background:var(--ink2)}
   .ev .min{font-family:Anton;font-size:14px;min-width:34px;color:var(--gold)}
@@ -173,7 +193,6 @@
   .sbtn.gold{background:var(--gold);color:#1a1400;border-color:transparent}
   .sbtn.mag[data-on="1"]{background:var(--mag);color:#fff;border-color:transparent}
 
-  /* controls */
   .controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
   .search{flex:1;min-width:180px;background:var(--ink2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 12px;font-size:13px;font-family:inherit}
   .pill{border:1px solid var(--line);background:var(--ink2);color:var(--muted);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer}
@@ -183,7 +202,6 @@
   .note b{color:var(--text)}
   .empty{text-align:center;color:var(--muted);padding:40px 10px;font-size:14px}
 
-  /* toasts */
   .toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:90;display:flex;flex-direction:column;gap:8px;width:min(440px,92%)}
   .toast{background:var(--ink3);border:1px solid var(--line2);border-left:4px solid var(--grass);border-radius:12px;padding:12px 14px;font-size:13px;box-shadow:var(--shadow);animation:tin .25s}
   .toast.goal{border-left-color:var(--mag)} .toast.ko{border-left-color:var(--gold)}
@@ -224,12 +242,6 @@
 <script>
 "use strict";
 
-/* ============================================================
-   VERIFIED DATA — 2026 FIFA World Cup (USA · Canada · Mexico)
-   Draw: 5 Dec 2025. 48 teams, 12 groups, 16 venues, 104 matches.
-   Times stored as UTC; displayed in UK (Europe/London) + venue-local.
-   ============================================================ */
-
 const TZ_UK = "Europe/London";
 
 const VENUES = {
@@ -251,7 +263,6 @@ const VENUES = {
   metlife:{n:"MetLife Stadium", city:"New York / NJ", country:"🇺🇸", tz:"America/New_York"},
 };
 
-// code: [full name, flag, group]
 const TEAMS = {
   MEX:["Mexico","🇲🇽","A"], RSA:["South Africa","🇿🇦","A"], KOR:["South Korea","🇰🇷","A"], CZE:["Czechia","🇨🇿","A"],
   CAN:["Canada","🇨🇦","B"], SUI:["Switzerland","🇨🇭","B"], QAT:["Qatar","🇶🇦","B"], BIH:["Bosnia & Herz.","🇧🇦","B"],
@@ -268,9 +279,7 @@ const TEAMS = {
 };
 const GROUPS = "ABCDEFGHIJKL".split("");
 
-/* UK broadcaster per match (group stage). Source: published BBC/ITV split.
-   To change one later, just edit its line. Knockout picks are TBC, so they're
-   left out and simply show no badge until you add them. */
+/* UK broadcaster per group match (source: published BBC/ITV split). */
 const TVUK = {
   m1:"ITV", m2:"ITV", m3:"BBC", m4:"BBC", m5:"ITV", m6:"BBC", m7:"BBC", m8:"ITV",
   m9:"ITV", m10:"ITV", m11:"BBC", m12:"ITV", m13:"ITV", m14:"BBC", m15:"ITV", m16:"BBC",
@@ -283,44 +292,82 @@ const TVUK = {
   m65:"BBC", m66:"BBC", m67:"ITV", m68:"ITV", m69:"BBC", m70:"BBC", m71:"BBC", m72:"BBC",
 };
 
-/* Seeded fixtures with confirmed UK kick-off times (stored UTC).
-   Covers the opener + the documented first two match-weeks incl. all
-   home nations, England (×2), Scotland, and the marquee sides.
-   id, stage, group, h, a, venue, t(UTC ISO) */
+/* Full 72-match group stage. Times stored UTC, shown in UK + venue-local. */
 let MATCHES = [
-  // Matchday 1 — opener
   {id:"m1", stage:"group", group:"A", h:"MEX", a:"RSA", venue:"azteca", t:"2026-06-11T19:00:00Z"},
-  // Round 2 of fixtures (documented kick-offs)
-  {id:"m25", stage:"group", group:"I", h:"FRA", a:"SEN", venue:"metlife", t:"2026-06-16T19:00:00Z"},
-  {id:"m26", stage:"group", group:"I", h:"IRQ", a:"NOR", venue:"gillette", t:"2026-06-16T22:00:00Z"},
-  {id:"m27", stage:"group", group:"J", h:"ARG", a:"ALG", venue:"arrowhead", t:"2026-06-17T01:00:00Z"},
-  {id:"m28", stage:"group", group:"J", h:"AUT", a:"JOR", venue:"levis", t:"2026-06-17T04:00:00Z"},
-  {id:"m29", stage:"group", group:"K", h:"POR", a:"COD", venue:"nrg", t:"2026-06-17T17:00:00Z"},
-  {id:"m30", stage:"group", group:"L", h:"ENG", a:"CRO", venue:"att", t:"2026-06-17T20:00:00Z"},
-  {id:"m31", stage:"group", group:"L", h:"GHA", a:"PAN", venue:"bmo", t:"2026-06-17T23:00:00Z"},
-  {id:"m32", stage:"group", group:"K", h:"UZB", a:"COL", venue:"azteca", t:"2026-06-18T02:00:00Z"},
-  {id:"m33", stage:"group", group:"A", h:"CZE", a:"RSA", venue:"mbenz", t:"2026-06-18T16:00:00Z"},
-  {id:"m34", stage:"group", group:"B", h:"SUI", a:"BIH", venue:"sofi", t:"2026-06-18T19:00:00Z"},
-  {id:"m35", stage:"group", group:"B", h:"CAN", a:"QAT", venue:"bcplace", t:"2026-06-18T22:00:00Z"},
-  {id:"m36", stage:"group", group:"A", h:"MEX", a:"KOR", venue:"akron", t:"2026-06-19T02:00:00Z"},
-  // Round 3 of fixtures
-  {id:"m49", stage:"group", group:"J", h:"ARG", a:"AUT", venue:"att", t:"2026-06-22T17:00:00Z"},
-  {id:"m50", stage:"group", group:"I", h:"FRA", a:"IRQ", venue:"linc", t:"2026-06-22T21:00:00Z"},
-  {id:"m51", stage:"group", group:"I", h:"NOR", a:"SEN", venue:"metlife", t:"2026-06-23T00:00:00Z"},
-  {id:"m52", stage:"group", group:"J", h:"JOR", a:"ALG", venue:"levis", t:"2026-06-23T03:00:00Z"},
-  {id:"m53", stage:"group", group:"K", h:"POR", a:"UZB", venue:"nrg", t:"2026-06-23T17:00:00Z"},
-  {id:"m54", stage:"group", group:"L", h:"ENG", a:"GHA", venue:"gillette", t:"2026-06-23T20:00:00Z"},
-  {id:"m55", stage:"group", group:"L", h:"PAN", a:"CRO", venue:"bmo", t:"2026-06-23T23:00:00Z"},
-  {id:"m56", stage:"group", group:"K", h:"COL", a:"COD", venue:"akron", t:"2026-06-24T02:00:00Z"},
-  {id:"m57", stage:"group", group:"B", h:"SUI", a:"CAN", venue:"bcplace", t:"2026-06-24T19:00:00Z"},
-  {id:"m58", stage:"group", group:"B", h:"BIH", a:"QAT", venue:"lumen", t:"2026-06-24T19:00:00Z"},
-  {id:"m59", stage:"group", group:"C", h:"SCO", a:"BRA", venue:"hardrock", t:"2026-06-24T22:00:00Z"},
-  {id:"m60", stage:"group", group:"C", h:"MAR", a:"HAI", venue:"mbenz", t:"2026-06-24T22:00:00Z"},
-  {id:"m61", stage:"group", group:"A", h:"CZE", a:"MEX", venue:"azteca", t:"2026-06-25T00:00:00Z"},
+  {id:"m2", stage:"group", group:"A", h:"KOR", a:"CZE", venue:"akron", t:"2026-06-12T02:00:00Z"},
+  {id:"m3", stage:"group", group:"B", h:"CAN", a:"BIH", venue:"bmo", t:"2026-06-12T19:00:00Z"},
+  {id:"m4", stage:"group", group:"D", h:"USA", a:"PAR", venue:"sofi", t:"2026-06-13T01:00:00Z"},
+  {id:"m5", stage:"group", group:"B", h:"QAT", a:"SUI", venue:"levis", t:"2026-06-13T19:00:00Z"},
+  {id:"m6", stage:"group", group:"C", h:"BRA", a:"MAR", venue:"metlife", t:"2026-06-13T22:00:00Z"},
+  {id:"m7", stage:"group", group:"C", h:"HAI", a:"SCO", venue:"gillette", t:"2026-06-14T01:00:00Z"},
+  {id:"m8", stage:"group", group:"D", h:"AUS", a:"TUR", venue:"bcplace", t:"2026-06-14T04:00:00Z"},
+  {id:"m9", stage:"group", group:"E", h:"GER", a:"CUW", venue:"nrg", t:"2026-06-14T17:00:00Z"},
+  {id:"m10", stage:"group", group:"F", h:"NED", a:"JPN", venue:"att", t:"2026-06-14T20:00:00Z"},
+  {id:"m11", stage:"group", group:"E", h:"CIV", a:"ECU", venue:"linc", t:"2026-06-14T23:00:00Z"},
+  {id:"m12", stage:"group", group:"F", h:"SWE", a:"TUN", venue:"akron", t:"2026-06-15T02:00:00Z"},
+  {id:"m13", stage:"group", group:"H", h:"ESP", a:"CPV", venue:"mbenz", t:"2026-06-15T16:00:00Z"},
+  {id:"m14", stage:"group", group:"G", h:"BEL", a:"EGY", venue:"lumen", t:"2026-06-15T19:00:00Z"},
+  {id:"m15", stage:"group", group:"H", h:"KSA", a:"URU", venue:"hardrock", t:"2026-06-15T22:00:00Z"},
+  {id:"m16", stage:"group", group:"G", h:"IRN", a:"NZL", venue:"sofi", t:"2026-06-16T01:00:00Z"},
+  {id:"m17", stage:"group", group:"I", h:"FRA", a:"SEN", venue:"metlife", t:"2026-06-16T19:00:00Z"},
+  {id:"m18", stage:"group", group:"I", h:"IRQ", a:"NOR", venue:"gillette", t:"2026-06-16T22:00:00Z"},
+  {id:"m19", stage:"group", group:"J", h:"ARG", a:"ALG", venue:"arrowhead", t:"2026-06-17T01:00:00Z"},
+  {id:"m20", stage:"group", group:"J", h:"AUT", a:"JOR", venue:"levis", t:"2026-06-17T04:00:00Z"},
+  {id:"m21", stage:"group", group:"K", h:"POR", a:"COD", venue:"nrg", t:"2026-06-17T17:00:00Z"},
+  {id:"m22", stage:"group", group:"L", h:"ENG", a:"CRO", venue:"att", t:"2026-06-17T20:00:00Z"},
+  {id:"m23", stage:"group", group:"L", h:"GHA", a:"PAN", venue:"bmo", t:"2026-06-17T23:00:00Z"},
+  {id:"m24", stage:"group", group:"K", h:"UZB", a:"COL", venue:"azteca", t:"2026-06-18T02:00:00Z"},
+  {id:"m25", stage:"group", group:"A", h:"CZE", a:"RSA", venue:"mbenz", t:"2026-06-18T16:00:00Z"},
+  {id:"m26", stage:"group", group:"B", h:"SUI", a:"BIH", venue:"sofi", t:"2026-06-18T19:00:00Z"},
+  {id:"m27", stage:"group", group:"B", h:"CAN", a:"QAT", venue:"bcplace", t:"2026-06-18T22:00:00Z"},
+  {id:"m28", stage:"group", group:"A", h:"MEX", a:"KOR", venue:"akron", t:"2026-06-19T01:00:00Z"},
+  {id:"m29", stage:"group", group:"D", h:"USA", a:"AUS", venue:"lumen", t:"2026-06-19T19:00:00Z"},
+  {id:"m30", stage:"group", group:"C", h:"SCO", a:"MAR", venue:"gillette", t:"2026-06-19T22:00:00Z"},
+  {id:"m31", stage:"group", group:"C", h:"BRA", a:"HAI", venue:"linc", t:"2026-06-20T00:30:00Z"},
+  {id:"m32", stage:"group", group:"D", h:"TUR", a:"PAR", venue:"levis", t:"2026-06-20T03:00:00Z"},
+  {id:"m33", stage:"group", group:"F", h:"NED", a:"SWE", venue:"nrg", t:"2026-06-20T17:00:00Z"},
+  {id:"m34", stage:"group", group:"E", h:"GER", a:"CIV", venue:"bmo", t:"2026-06-20T20:00:00Z"},
+  {id:"m35", stage:"group", group:"E", h:"ECU", a:"CUW", venue:"arrowhead", t:"2026-06-21T00:00:00Z"},
+  {id:"m36", stage:"group", group:"F", h:"TUN", a:"JPN", venue:"bbva", t:"2026-06-21T04:00:00Z"},
+  {id:"m37", stage:"group", group:"H", h:"ESP", a:"KSA", venue:"mbenz", t:"2026-06-21T16:00:00Z"},
+  {id:"m38", stage:"group", group:"G", h:"BEL", a:"IRN", venue:"sofi", t:"2026-06-21T19:00:00Z"},
+  {id:"m39", stage:"group", group:"H", h:"URU", a:"CPV", venue:"hardrock", t:"2026-06-21T22:00:00Z"},
+  {id:"m40", stage:"group", group:"G", h:"NZL", a:"EGY", venue:"bcplace", t:"2026-06-22T01:00:00Z"},
+  {id:"m41", stage:"group", group:"J", h:"ARG", a:"AUT", venue:"att", t:"2026-06-22T17:00:00Z"},
+  {id:"m42", stage:"group", group:"I", h:"FRA", a:"IRQ", venue:"linc", t:"2026-06-22T21:00:00Z"},
+  {id:"m43", stage:"group", group:"I", h:"NOR", a:"SEN", venue:"metlife", t:"2026-06-23T00:00:00Z"},
+  {id:"m44", stage:"group", group:"J", h:"JOR", a:"ALG", venue:"levis", t:"2026-06-23T03:00:00Z"},
+  {id:"m45", stage:"group", group:"K", h:"POR", a:"UZB", venue:"nrg", t:"2026-06-23T17:00:00Z"},
+  {id:"m46", stage:"group", group:"L", h:"ENG", a:"GHA", venue:"gillette", t:"2026-06-23T20:00:00Z"},
+  {id:"m47", stage:"group", group:"L", h:"PAN", a:"CRO", venue:"bmo", t:"2026-06-23T23:00:00Z"},
+  {id:"m48", stage:"group", group:"K", h:"COL", a:"COD", venue:"akron", t:"2026-06-24T02:00:00Z"},
+  {id:"m49", stage:"group", group:"B", h:"SUI", a:"CAN", venue:"bcplace", t:"2026-06-24T19:00:00Z"},
+  {id:"m50", stage:"group", group:"B", h:"BIH", a:"QAT", venue:"lumen", t:"2026-06-24T19:00:00Z"},
+  {id:"m51", stage:"group", group:"C", h:"SCO", a:"BRA", venue:"hardrock", t:"2026-06-24T22:00:00Z"},
+  {id:"m52", stage:"group", group:"C", h:"MAR", a:"HAI", venue:"mbenz", t:"2026-06-24T22:00:00Z"},
+  {id:"m53", stage:"group", group:"A", h:"RSA", a:"KOR", venue:"bbva", t:"2026-06-25T01:00:00Z"},
+  {id:"m54", stage:"group", group:"A", h:"CZE", a:"MEX", venue:"azteca", t:"2026-06-25T01:00:00Z"},
+  {id:"m55", stage:"group", group:"E", h:"CUW", a:"CIV", venue:"linc", t:"2026-06-25T20:00:00Z"},
+  {id:"m56", stage:"group", group:"E", h:"ECU", a:"GER", venue:"metlife", t:"2026-06-25T20:00:00Z"},
+  {id:"m57", stage:"group", group:"F", h:"JPN", a:"SWE", venue:"att", t:"2026-06-25T23:00:00Z"},
+  {id:"m58", stage:"group", group:"F", h:"TUN", a:"NED", venue:"arrowhead", t:"2026-06-25T23:00:00Z"},
+  {id:"m59", stage:"group", group:"D", h:"PAR", a:"AUS", venue:"levis", t:"2026-06-26T02:00:00Z"},
+  {id:"m60", stage:"group", group:"D", h:"TUR", a:"USA", venue:"sofi", t:"2026-06-26T02:00:00Z"},
+  {id:"m61", stage:"group", group:"I", h:"NOR", a:"FRA", venue:"gillette", t:"2026-06-26T19:00:00Z"},
+  {id:"m62", stage:"group", group:"I", h:"SEN", a:"IRQ", venue:"bmo", t:"2026-06-26T19:00:00Z"},
+  {id:"m63", stage:"group", group:"H", h:"CPV", a:"KSA", venue:"hardrock", t:"2026-06-27T00:00:00Z"},
+  {id:"m64", stage:"group", group:"H", h:"URU", a:"ESP", venue:"akron", t:"2026-06-27T00:00:00Z"},
+  {id:"m65", stage:"group", group:"G", h:"EGY", a:"IRN", venue:"lumen", t:"2026-06-27T03:00:00Z"},
+  {id:"m66", stage:"group", group:"G", h:"NZL", a:"BEL", venue:"bcplace", t:"2026-06-27T03:00:00Z"},
+  {id:"m67", stage:"group", group:"L", h:"PAN", a:"ENG", venue:"metlife", t:"2026-06-27T21:00:00Z"},
+  {id:"m68", stage:"group", group:"L", h:"CRO", a:"GHA", venue:"mbenz", t:"2026-06-27T21:00:00Z"},
+  {id:"m69", stage:"group", group:"K", h:"COL", a:"POR", venue:"hardrock", t:"2026-06-27T23:30:00Z"},
+  {id:"m70", stage:"group", group:"K", h:"COD", a:"UZB", venue:"mbenz", t:"2026-06-27T23:30:00Z"},
+  {id:"m71", stage:"group", group:"J", h:"ALG", a:"AUT", venue:"arrowhead", t:"2026-06-28T02:00:00Z"},
+  {id:"m72", stage:"group", group:"J", h:"ARG", a:"JOR", venue:"att", t:"2026-06-28T02:00:00Z"},
 ];
 
-/* Knockout scaffold — venues + confirmed UK kick-off times where known.
-   Teams resolve via the live update once the bracket is set. */
 const KNOCKOUT = [
   {round:"Round of 32", date:"Jun 28 – Jul 3", note:"32 teams · times confirmed nearer the date", ties:[]},
   {round:"Round of 16", date:"Jul 4 – 7", note:"16 teams", ties:[]},
@@ -335,104 +382,57 @@ const KNOCKOUT = [
   {round:"Final", date:"Jul 19", ties:[{label:"FINAL", venue:"metlife", uk:"8:00pm"}]},
 ];
 
-/* ============================================================
-   STATE  (persisted via window.storage when in Claude; memory fallback)
-   ============================================================ */
-const DEFAULT_STATE = { followTeams:[], followMatches:[], notify:false, lastSeen:{}, refreshedAt:null };
+/* ===== State (persists via window.storage in preview, localStorage when hosted) ===== */
+const DEFAULT_STATE = { followTeams:[], followMatches:[], notify:false, lastSeen:{}, refreshedAt:null, stats:{} };
 let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
-const mem = {}; // fallback store
-
+const mem = {};
 async function loadState(){
   try{
-    if(window.storage){                          // Claude preview environment
-      const r = await window.storage.get("wc26");
-      if(r && r.value) state = Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), JSON.parse(r.value));
-      return;
-    }
-    const ls = (typeof localStorage!=="undefined") ? localStorage.getItem("wc26") : mem.wc26;  // deployed app
+    if(window.storage){ const r = await window.storage.get("wc26"); if(r && r.value) state = Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), JSON.parse(r.value)); return; }
+    const ls = (typeof localStorage!=="undefined") ? localStorage.getItem("wc26") : mem.wc26;
     if(ls) state = Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), JSON.parse(ls));
-  }catch(e){ /* first run / storage unavailable */ }
+  }catch(e){}
 }
 async function saveState(){
   const s = JSON.stringify(state);
-  try{
-    if(window.storage){ await window.storage.set("wc26", s); return; }
-    if(typeof localStorage!=="undefined"){ localStorage.setItem("wc26", s); return; }
-    mem.wc26 = s;
-  }catch(e){ mem.wc26 = s; }
+  try{ if(window.storage){ await window.storage.set("wc26", s); return; } if(typeof localStorage!=="undefined"){ localStorage.setItem("wc26", s); return; } mem.wc26 = s; }
+  catch(e){ mem.wc26 = s; }
 }
 
-/* ============================================================
-   HELPERS
-   ============================================================ */
+/* ===== Helpers ===== */
 const team = c => TEAMS[c] || [c,"🏳️","?"];
 const fl = c => team(c)[1];
 const nm = c => team(c)[0];
 const venue = v => VENUES[v] || {n:"TBC",city:"",country:"",tz:TZ_UK};
-
-function fmtUK(iso, withDate=false){
-  const d = new Date(iso);
-  const opt = {timeZone:TZ_UK, hour:"2-digit", minute:"2-digit", hour12:false};
-  if(withDate){ opt.weekday="short"; opt.day="numeric"; opt.month="short"; }
-  return new Intl.DateTimeFormat("en-GB", opt).format(d);
-}
-function fmtLocal(iso, tz){
-  return new Intl.DateTimeFormat("en-GB",{timeZone:tz, hour:"2-digit", minute:"2-digit", hour12:false}).format(new Date(iso));
-}
-function ukDayKey(iso){
-  return new Intl.DateTimeFormat("en-CA",{timeZone:TZ_UK, year:"numeric", month:"2-digit", day:"2-digit"}).format(new Date(iso));
-}
-function ukDayLabel(iso){
-  return new Intl.DateTimeFormat("en-GB",{timeZone:TZ_UK, weekday:"long", day:"numeric", month:"long"}).format(new Date(iso));
-}
-// "unsociable" UK viewing: kickoff between 23:30 and 06:30 UK
-function isLateUK(iso){
-  const h = +new Intl.DateTimeFormat("en-GB",{timeZone:TZ_UK,hour:"2-digit",hour12:false}).format(new Date(iso));
-  return h>=0 && h<7;
-}
-function matchStatus(m){
-  if(m.score && m.status==="ft") return "ft";
-  if(m.status==="live"||m.status==="ht") return "live";
-  return "upcoming";
-}
+function fmtUK(iso, withDate=false){ const opt = {timeZone:TZ_UK, hour:"2-digit", minute:"2-digit", hour12:false}; if(withDate){ opt.weekday="short"; opt.day="numeric"; opt.month="short"; } return new Intl.DateTimeFormat("en-GB", opt).format(new Date(iso)); }
+function fmtLocal(iso, tz){ return new Intl.DateTimeFormat("en-GB",{timeZone:tz, hour:"2-digit", minute:"2-digit", hour12:false}).format(new Date(iso)); }
+function ukDayKey(iso){ return new Intl.DateTimeFormat("en-CA",{timeZone:TZ_UK, year:"numeric", month:"2-digit", day:"2-digit"}).format(new Date(iso)); }
+function ukDayLabel(iso){ return new Intl.DateTimeFormat("en-GB",{timeZone:TZ_UK, weekday:"long", day:"numeric", month:"long"}).format(new Date(iso)); }
+function isLateUK(iso){ const h = +new Intl.DateTimeFormat("en-GB",{timeZone:TZ_UK,hour:"2-digit",hour12:false}).format(new Date(iso)); return h>=0 && h<7; }
+function matchStatus(m){ if(m.score && m.status==="ft") return "ft"; if(m.status==="live"||m.status==="ht") return "live"; return "upcoming"; }
 function el(html){ const t=document.createElement("template"); t.innerHTML=html.trim(); return t.content.firstChild; }
 function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 
-/* ============================================================
-   STANDINGS — computed from any finished matches in MATCHES
-   ============================================================ */
+/* ===== Standings ===== */
 function standings(group){
   const teams = Object.keys(TEAMS).filter(c=>team(c)[2]===group);
   const tab = {}; teams.forEach(c=>tab[c]={c,P:0,W:0,D:0,L:0,GF:0,GA:0,GD:0,Pts:0});
   MATCHES.filter(m=>m.group===group && m.score).forEach(m=>{
-    const [hs,as_] = m.score; const H=tab[m.h], A=tab[m.a]; if(!H||!A) return;
+    const hs=+m.score[0], as_=+m.score[1]; const H=tab[m.h], A=tab[m.a]; if(!H||!A) return;
     H.P++;A.P++;H.GF+=hs;H.GA+=as_;A.GF+=as_;A.GA+=hs;
     if(hs>as_){H.W++;A.L++;H.Pts+=3;} else if(hs<as_){A.W++;H.L++;A.Pts+=3;} else {H.D++;A.D++;H.Pts++;A.Pts++;}
   });
-  return Object.values(tab).map(r=>(r.GD=r.GF-r.GA,r)).sort((a,b)=>
-    b.Pts-a.Pts || b.GD-a.GD || b.GF-a.GF || nm(a.c).localeCompare(nm(b.c)));
+  return Object.values(tab).map(r=>(r.GD=r.GF-r.GA,r)).sort((a,b)=> b.Pts-a.Pts || b.GD-a.GD || b.GF-a.GF || nm(a.c).localeCompare(nm(b.c)));
 }
 
-/* ============================================================
-   FOLLOW / NEXT MATCH
-   ============================================================ */
-function isFollowedMatch(m){
-  return state.followMatches.includes(m.id) ||
-         state.followTeams.includes(m.h) || state.followTeams.includes(m.a);
-}
-function followedFixtures(){
-  return MATCHES.filter(isFollowedMatch).sort((a,b)=>new Date(a.t)-new Date(b.t));
-}
-function nextFollowed(){
-  const now=Date.now();
-  return followedFixtures().find(m=>new Date(m.t).getTime()>now-2*3600e3 && matchStatus(m)!=="ft");
-}
+/* ===== Follow / next ===== */
+function isFollowedMatch(m){ return state.followMatches.includes(m.id) || state.followTeams.includes(m.h) || state.followTeams.includes(m.a); }
+function followedFixtures(){ return MATCHES.filter(isFollowedMatch).sort((a,b)=>new Date(a.t)-new Date(b.t)); }
+function nextFollowed(){ const now=Date.now(); return followedFixtures().find(m=>new Date(m.t).getTime()>now-2*3600e3 && matchStatus(m)!=="ft"); }
 
-/* ============================================================
-   RENDER
-   ============================================================ */
+/* ===== Render ===== */
 const view = document.getElementById("view");
-const TABS = [["today","Today / Live"],["fixtures","Fixtures"],["groups","Groups"],["knockout","Knockout"],["teams","Teams"],["mine","Following"],["info","About"]];
+const TABS = [["today","Today / Live"],["fixtures","Fixtures"],["groups","Groups"],["stats","Stats"],["knockout","Knockout"],["teams","Teams"],["mine","Following"],["info","About"]];
 let activeTab = "today";
 
 function renderTabs(){
@@ -446,11 +446,11 @@ function renderTabs(){
 }
 
 function slabHTML(m){
-  const st=matchStatus(m); const v=venue(m.venue);
-  const fwd=isFollowedMatch(m);
+  const st=matchStatus(m); const v=venue(m.venue); const fwd=isFollowedMatch(m);
   let mid;
   if(st==="upcoming"){
-    mid=`<div class="ko">${fmtUK(m.t)}<small>${fmtLocal(m.t,v.tz)} local</small></div>`;
+    const late=isLateUK(m.t);
+    mid=`<div class="ko">${fmtUK(m.t)}${late?' <span class="moon" title="Unsociable UK kick-off (after midnight)">🌙</span>':''}<small>${fmtLocal(m.t,v.tz)} local</small></div>`;
   } else {
     const sc=m.score?`${m.score[0]}–${m.score[1]}`:"0–0";
     mid=`<div class="score">${sc}</div>`;
@@ -469,17 +469,11 @@ function slabHTML(m){
       <span class="venue">${esc(v.n)} · ${esc(v.city)} ${v.country}</span>
     </div>
     <div class="row">
-      <div class="side">
-        <span class="flag">${fl(m.h)}</span>
-        <span class="nm"><span class="code">${esc(m.h)}</span><span class="full">${esc(nm(m.h))}</span></span>
-      </div>
+      <div class="side"><span class="flag">${fl(m.h)}</span><span class="nm"><span class="code">${esc(m.h)}</span><span class="full">${esc(nm(m.h))}</span></span></div>
       ${mid}
-      <div class="side away">
-        <span class="flag">${fl(m.a)}</span>
-        <span class="nm"><span class="code">${esc(m.a)}</span><span class="full">${esc(nm(m.a))}</span></span>
-      </div>
+      <div class="side away"><span class="flag">${fl(m.a)}</span><span class="nm"><span class="code">${esc(m.a)}</span><span class="full">${esc(nm(m.a))}</span></span></div>
     </div>
-    ${st==="upcoming"&&isLateUK(m.t)?`<div class="unsocial" title="Late-night UK kick-off"></div>`:""}
+    ${st==="upcoming"&&isLateUK(m.t)?`<div class="unsocial" title="Unsociable UK kick-off (after midnight)"></div>`:""}
   </div>`;
 }
 
@@ -487,13 +481,11 @@ function renderToday(){
   const todayKey = ukDayKey(new Date().toISOString());
   const live = MATCHES.filter(m=>matchStatus(m)==="live");
   const today = MATCHES.filter(m=>ukDayKey(m.t)===todayKey).sort((a,b)=>new Date(a.t)-new Date(b.t));
-  const upcoming = MATCHES.filter(m=>matchStatus(m)==="upcoming" && new Date(m.t)>Date.now())
-                          .sort((a,b)=>new Date(a.t)-new Date(b.t)).slice(0,6);
+  const upcoming = MATCHES.filter(m=>matchStatus(m)==="upcoming" && new Date(m.t)>Date.now()).sort((a,b)=>new Date(a.t)-new Date(b.t)).slice(0,6);
   let h="";
   if(live.length){ h+=`<div class="eyebrow">Live now</div>`+live.map(slabHTML).join(""); }
   h+=`<div class="eyebrow">Today · UK time</div>`;
-  h+= today.length ? today.map(slabHTML).join("")
-     : `<div class="empty">No matches scheduled for today (UK).<br>The tournament runs 11 Jun – 19 Jul 2026.</div>`;
+  h+= today.length ? today.map(slabHTML).join("") : `<div class="empty">No matches scheduled for today (UK).<br>The tournament runs 11 Jun – 19 Jul 2026.</div>`;
   h+=`<div class="eyebrow">Coming up next</div>`+ (upcoming.length?upcoming.map(slabHTML).join(""):`<div class="empty">—</div>`);
   view.innerHTML=h;
 }
@@ -504,22 +496,17 @@ function renderFixtures(){
     <input class="search" id="fxq" placeholder="Search team or city…" value="${esc(fxFilter.q)}">
     <button class="pill" data-grp="all" aria-pressed="${fxFilter.group==='all'}">All groups</button>
     <button class="pill" data-mine aria-pressed="${fxFilter.mine}">★ My teams</button>
-  </div>
-  <div class="controls" id="grpPills"></div>`;
+  </div><div class="controls" id="grpPills"></div>`;
   let list = MATCHES.slice().sort((a,b)=>new Date(a.t)-new Date(b.t));
   if(fxFilter.group!=="all") list=list.filter(m=>m.group===fxFilter.group);
   if(fxFilter.mine) list=list.filter(isFollowedMatch);
-  if(fxFilter.q){ const q=fxFilter.q.toLowerCase();
-    list=list.filter(m=>[nm(m.h),nm(m.a),m.h,m.a,venue(m.venue).city,venue(m.venue).n].join(" ").toLowerCase().includes(q)); }
-  // group by UK day
+  if(fxFilter.q){ const q=fxFilter.q.toLowerCase(); list=list.filter(m=>[nm(m.h),nm(m.a),m.h,m.a,venue(m.venue).city,venue(m.venue).n].join(" ").toLowerCase().includes(q)); }
   let cur=""; let body="";
-  if(!list.length) body=`<div class="empty">No fixtures match that. Seeded schedule covers the first weeks; tap “Live” to pull the rest.</div>`;
+  if(!list.length) body=`<div class="empty">No fixtures match that filter. Try clearing the search or group filter.</div>`;
   list.forEach(m=>{ const k=ukDayKey(m.t); if(k!==cur){cur=k; body+=`<div class="day">${ukDayLabel(m.t)}</div>`;} body+=slabHTML(m); });
   view.innerHTML=h+body;
-  // group pills
   const gp=document.getElementById("grpPills");
-  GROUPS.forEach(g=>{ const b=el(`<button class="pill" aria-pressed="${fxFilter.group===g}">Grp ${g}</button>`);
-    b.onclick=()=>{fxFilter.group=fxFilter.group===g?"all":g; renderFixtures();}; gp.appendChild(b); });
+  GROUPS.forEach(g=>{ const b=el(`<button class="pill" aria-pressed="${fxFilter.group===g}">Grp ${g}</button>`); b.onclick=()=>{fxFilter.group=fxFilter.group===g?"all":g; renderFixtures();}; gp.appendChild(b); });
   document.getElementById("fxq").oninput=e=>{fxFilter.q=e.target.value; clearTimeout(window._fxt); window._fxt=setTimeout(renderFixtures,180);};
   view.querySelector("[data-grp='all']").onclick=()=>{fxFilter.group="all"; renderFixtures();};
   view.querySelector("[data-mine]").onclick=()=>{fxFilter.mine=!fxFilter.mine; renderFixtures();};
@@ -529,40 +516,64 @@ function renderGroups(){
   let h=`<div class="note">Standings update automatically from results. Tiebreakers (FIFA order): points → goal difference → goals scored → head-to-head → fair-play → drawing of lots. <b>Top 2 of each group + the 8 best 3rd-placed teams</b> reach the Round of 32.</div>`;
   GROUPS.forEach(g=>{
     const rows=standings(g);
-    h+=`<div class="grpcard"><div class="grphead"><b>Group ${g}</b></div>
-    <table><thead><tr><th></th><th class="l">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead><tbody>`;
-    rows.forEach((r,i)=>{ h+=`<tr class="${i<2?'qual':''}">
-      <td class="pos">${i+1}</td>
-      <td class="l team">${fl(r.c)} <span>${esc(nm(r.c))}</span></td>
-      <td>${r.P}</td><td>${r.W}</td><td>${r.D}</td><td>${r.L}</td><td>${r.GD>0?'+':''}${r.GD}</td><td class="pts">${r.Pts}</td></tr>`; });
+    h+=`<div class="grpcard"><div class="grphead"><b>Group ${g}</b></div><table><thead><tr><th></th><th class="l">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead><tbody>`;
+    rows.forEach((r,i)=>{ h+=`<tr class="${i<2?'qual':''}"><td class="pos">${i+1}</td><td class="l team">${fl(r.c)} <span>${esc(nm(r.c))}</span></td><td>${r.P}</td><td>${r.W}</td><td>${r.D}</td><td>${r.L}</td><td>${r.GD>0?'+':''}${r.GD}</td><td class="pts">${r.Pts}</td></tr>`; });
     h+=`</tbody></table></div>`;
   });
   view.innerHTML=h;
 }
 
+/* ===== Stats ===== */
+function computeTotals(){ let goals=0, played=0; MATCHES.forEach(m=>{ if(m.score){ goals+=(+m.score[0]||0)+(+m.score[1]||0); if(matchStatus(m)==="ft") played++; }}); return {goals,played}; }
+function teamCleanSheets(){ const cs={}; MATCHES.forEach(m=>{ if(m.score && matchStatus(m)==="ft"){ if((+m.score[1]||0)===0) cs[m.h]=(cs[m.h]||0)+1; if((+m.score[0]||0)===0) cs[m.a]=(cs[m.a]||0)+1; }}); return Object.entries(cs).map(([c,n])=>({c,n})).sort((a,b)=>b.n-a.n); }
+function aggFromEvents(){ const sc={}, cd={}; MATCHES.forEach(m=>(m.events||[]).forEach(e=>{ if(!e.player) return; const key=e.player+"|"+(e.team||""); if(e.type==="goal"){ (sc[key]=sc[key]||{player:e.player,team:e.team,goals:0}).goals++; } if(e.type==="yellow"||e.type==="red"){ const r=cd[key]=cd[key]||{player:e.player,team:e.team,yellow:0,red:0}; r[e.type]++; } })); return {scorers:Object.values(sc).sort((a,b)=>b.goals-a.goals), cards:Object.values(cd).sort((a,b)=>(b.red*2+b.yellow)-(a.red*2+a.yellow))}; }
+function flagOf(t){ const c=code(t); return c?fl(c):"⚽"; }
+function teamName(t){ const c=code(t); return c?nm(c):(t||""); }
+
+function renderStats(){
+  const tot=computeTotals(); const S=state.stats||{}; const agg=aggFromEvents();
+  const scorers=(S.scorers&&S.scorers.length)?S.scorers:agg.scorers;
+  const assists=(S.assists&&S.assists.length)?S.assists:[];
+  const cards=(S.cards&&S.cards.length)?S.cards:agg.cards;
+  const cs=(S.cleanSheets&&S.cleanSheets.length)? S.cleanSheets.map(x=>({c:code(x.team)||x.team,n:x.count})).sort((a,b)=>b.n-a.n) : teamCleanSheets();
+  const maxG=scorers.length?Math.max(...scorers.map(s=>+s.goals||0),1):1;
+  const asOf=state.refreshedAt?`Updated ${fmtUK(new Date(state.refreshedAt).toISOString(),true)} UK`:"Tap Live to pull player stats";
+  let h=`
+  <div class="stathero">
+    <div class="big" id="goalCounter">${tot.goals}</div>
+    <div class="lbl">Total tournament goals</div>
+    <div class="sub">Across ${tot.played} completed ${tot.played===1?"match":"matches"} · includes extra time (penalty shootouts not counted as goals)</div>
+  </div>
+  <div class="lead"><h3><span class="tagicon">👟</span> Golden Boot — top scorers</h3>`;
+  h+= scorers.length ? scorers.slice(0,10).map((s,i)=>`<div class="lrow ${i===0?'top':''}"><span class="rk">${i+1}</span><span class="fl">${flagOf(s.team)}</span><span class="pn"><div class="who">${esc(s.player||"")}</div><div class="tm">${esc(teamName(s.team))}</div></span><span class="val">${+s.goals||0}</span><span class="bar" style="width:${Math.round(((+s.goals||0)/maxG)*100)}%"></span></div>`).join("") : `<div class="empty">The Golden Boot race starts on 11 June. Tap <b>Live</b> during matches to fill this in.</div>`;
+  h+=`</div><div class="statgrid"><div class="lead"><h3><span class="tagicon">🅰️</span> Most assists</h3>`;
+  h+= assists.length ? assists.slice(0,8).map((s,i)=>`<div class="lrow ${i===0?'top':''}"><span class="rk">${i+1}</span><span class="fl">${flagOf(s.team)}</span><span class="pn"><div class="who">${esc(s.player||"")}</div><div class="tm">${esc(teamName(s.team))}</div></span><span class="val">${+s.assists||0}</span></div>`).join("") : `<div class="empty" style="padding:26px 10px">No assists recorded yet.</div>`;
+  h+=`</div><div class="lead"><h3><span class="tagicon">🧤</span> Clean sheets</h3>`;
+  h+= cs.length ? cs.slice(0,8).map(x=>`<div class="csrow"><span class="fl">${fl(x.c)||"🧤"}</span> <span>${esc(nm(x.c)||x.c)}</span><span class="val">${x.n}</span></div>`).join("") : `<div class="empty" style="padding:26px 10px">No clean sheets yet.</div>`;
+  h+=`</div></div><div class="lead"><h3><span class="tagicon">🟨</span> Discipline — most booked</h3>`;
+  h+= cards.length ? cards.slice(0,10).map((c,i)=>`<div class="lrow"><span class="rk">${i+1}</span><span class="fl">${flagOf(c.team)}</span><span class="pn"><div class="who">${esc(c.player||"")}</div><div class="tm">${esc(teamName(c.team))}</div></span><span class="pips">${"<span class='pip y'></span>".repeat(Math.min(+c.yellow||0,6))}${"<span class='pip r'></span>".repeat(Math.min(+c.red||0,2))}</span></div>`).join("") : `<div class="empty">No yellows or reds yet. Bookings appear here once matches begin.</div>`;
+  h+=`</div><div class="note muted">${asOf}. Total goals and clean sheets are calculated from results, so they're exact for every completed match. Scorers, assists and cards come from the live feed and fill in as the tournament unfolds.</div>`;
+  view.innerHTML=h;
+  animateCount("goalCounter",tot.goals);
+}
+function animateCount(id,to){ const e=document.getElementById(id); if(!e) return; const reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; if(reduce || to<=0){ e.textContent=to; return; } const dur=750, t0=performance.now(); (function step(t){ const p=Math.min(1,(t-t0)/dur); e.textContent=Math.round(to*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); })(t0); }
+
 function renderKnockout(){
-  let h=`<div class="note">The bracket below is the confirmed venue + UK kick-off scaffold. Team names resolve once group stage ends — tap <b>Live</b> to pull them in.</div><div class="kogrid">`;
+  let h=`<div class="note">The bracket below is the confirmed venue + UK kick-off scaffold. Team names resolve once the group stage ends — tap <b>Live</b> to pull them in.</div><div class="kogrid">`;
   KNOCKOUT.forEach(r=>{
     h+=`<div class="kround"><h3>${esc(r.round)} <span class="muted" style="font-family:Inter;font-size:12px;letter-spacing:0">· ${esc(r.date)}</span></h3>`;
     if(r.note) h+=`<div class="kr"><span>${esc(r.note)}</span></div>`;
-    r.ties.forEach(t=>{ const v=venue(t.venue);
-      h+=`<div class="kr"><b>${esc(t.label)}</b><span>${esc(t.uk)} UK · ${esc(v.city)} ${v.country}</span></div>`; });
+    r.ties.forEach(t=>{ const v=venue(t.venue); h+=`<div class="kr"><b>${esc(t.label)}</b><span>${esc(t.uk)} UK · ${esc(v.city)} ${v.country}</span></div>`; });
     h+=`</div>`;
   });
-  h+=`</div>`;
-  view.innerHTML=h;
+  view.innerHTML=h+`</div>`;
 }
 
 function renderTeams(){
   let h=``;
   GROUPS.forEach(g=>{
     h+=`<div class="eyebrow">Group ${g}</div><div class="teamgrid">`;
-    Object.keys(TEAMS).filter(c=>team(c)[2]===g).forEach(c=>{
-      const on=state.followTeams.includes(c);
-      h+=`<div class="tcard" data-team="${c}">
-        <span class="star" data-fteam="${c}" data-on="${on?1:0}">★</span>
-        <div class="fl">${fl(c)}</div><div class="tn">${esc(nm(c))}</div><div class="tg">Group ${g}</div></div>`;
-    });
+    Object.keys(TEAMS).filter(c=>team(c)[2]===g).forEach(c=>{ const on=state.followTeams.includes(c); h+=`<div class="tcard" data-team="${c}"><span class="star" data-fteam="${c}" data-on="${on?1:0}">★</span><div class="fl">${fl(c)}</div><div class="tn">${esc(nm(c))}</div><div class="tg">Group ${g}</div></div>`; });
     h+=`</div>`;
   });
   view.innerHTML=h;
@@ -570,19 +581,11 @@ function renderTeams(){
 
 function renderMine(){
   let h="";
-  if(!state.followTeams.length && !state.followMatches.length){
-    view.innerHTML=`<div class="empty">You're not following anything yet.<br>Tap ★ on a team or match to build your personal schedule, then export it to your calendar.</div>`; return;
-  }
-  if(state.followTeams.length){
-    h+=`<div class="eyebrow">My teams</div><div class="teamgrid">`;
-    state.followTeams.forEach(c=>{ h+=`<div class="tcard" data-team="${c}"><span class="star" data-fteam="${c}" data-on="1">★</span><div class="fl">${fl(c)}</div><div class="tn">${esc(nm(c))}</div><div class="tg">Group ${team(c)[2]}</div></div>`; });
-    h+=`</div>`;
-  }
+  if(!state.followTeams.length && !state.followMatches.length){ view.innerHTML=`<div class="empty">You're not following anything yet.<br>Tap ★ on a team or match to build your personal schedule, then export it to your calendar.</div>`; return; }
+  if(state.followTeams.length){ h+=`<div class="eyebrow">My teams</div><div class="teamgrid">`; state.followTeams.forEach(c=>{ h+=`<div class="tcard" data-team="${c}"><span class="star" data-fteam="${c}" data-on="1">★</span><div class="fl">${fl(c)}</div><div class="tn">${esc(nm(c))}</div><div class="tg">Group ${team(c)[2]}</div></div>`; }); h+=`</div>`; }
   const fx=followedFixtures();
-  h+=`<div class="controls" style="margin-top:18px"><button class="sbtn gold" id="ics">📅 Add my matches to calendar (.ics)</button></div>`;
-  h+=`<div class="eyebrow">My fixtures · UK time</div>`;
-  h+= fx.length? (()=>{let cur="",b="";fx.forEach(m=>{const k=ukDayKey(m.t);if(k!==cur){cur=k;b+=`<div class="day">${ukDayLabel(m.t)}</div>`;}b+=slabHTML(m);});return b;})()
-     : `<div class="empty">Your followed teams' fixtures will appear here as they're scheduled.</div>`;
+  h+=`<div class="controls" style="margin-top:18px"><button class="sbtn gold" id="ics">📅 Add my matches to calendar (.ics)</button></div><div class="eyebrow">My fixtures · UK time</div>`;
+  h+= fx.length? (()=>{let cur="",b="";fx.forEach(m=>{const k=ukDayKey(m.t);if(k!==cur){cur=k;b+=`<div class="day">${ukDayLabel(m.t)}</div>`;}b+=slabHTML(m);});return b;})() : `<div class="empty">Your followed teams' fixtures will appear here.</div>`;
   view.innerHTML=h;
   const ics=document.getElementById("ics"); if(ics) ics.onclick=exportICS;
 }
@@ -590,31 +593,21 @@ function renderMine(){
 function renderInfo(){
   view.innerHTML=`
   <h2 class="sec">How this works</h2>
-  <div class="note">
-    <b>Built-in schedule.</b> The opener plus the first two match-weeks (all three host nations, England ×2, Scotland, and every marquee side) ship with confirmed venues and UK kick-off times. Everything works offline.
-  </div>
-  <div class="note">
-    <b>Live updates.</b> Tap <b>Live</b> (top right) to pull current scores, statuses, goalscorers and cards, and to fill in later rounds. This searches the web in real time, so depth depends on what's published at that moment — scores and results are reliable; minute-by-minute events fill in where available.
-  </div>
-  <div class="note">
-    <b>Alerts.</b> Turn on 🔔 to get a heads-up when a match you follow is about to kick off, and when goals land during a refresh. Browser alerts work while this is open in a tab; for lock-screen push you'd deploy it as an installed app (the file is ready for that).
-  </div>
-  <div class="note">
-    <b>Times.</b> Everything shows in UK time first, with the venue's local time alongside. A pink bar under a match flags an unsociable UK kick-off (midnight–7am) so you can plan sleep around it.
-  </div>
-  <div class="note">
-    <b>Following.</b> Star a team to auto-follow all its matches, or star individual matches. Export your personal schedule to any calendar app with the .ics button on the Following tab.
-  </div>
-  <div class="note muted">Data verified against FIFA, ESPN, Sky Sports and Al Jazeera on 9 Jun 2026. The 2026 World Cup runs 11 Jun – 19 Jul across the USA, Canada and Mexico. Final: MetLife Stadium, 8:00pm UK, 19 Jul.</div>`;
+  <div class="note"><b>Built-in schedule.</b> The full group stage — all 72 matches across 12 groups — ships with confirmed venues, UK kick-off times and BBC/ITV labels. Everything works offline. Knockout fixtures fill in via Live once the bracket is set.</div>
+  <div class="note"><b>Live updates.</b> Tap <b>Live</b> (top right) to pull current scores, results and standings. With a free football-data.org token set on your host these are reliable; an optional AI key adds the Golden Boot, assists and cards leaderboards. The app tells you exactly what's connected.</div>
+  <div class="note"><b>Stats.</b> The Stats tab tracks total tournament goals (including extra time), clean sheets, the Golden Boot race, assists and bookings. Goals and clean sheets are calculated from results so they're always exact.</div>
+  <div class="note"><b>Alerts.</b> Turn on 🔔 for a nudge before a followed match kicks off, and a goal alert during a refresh. Browser alerts work while this is open; for lock-screen push you'd deploy it as an installed app.</div>
+  <div class="note"><b>Times.</b> Everything shows in UK time first, with the venue's local time alongside. A 🌙 by the kick-off and a pink bar flag an unsociable UK start (after midnight).</div>
+  <div class="note"><b>Following.</b> Star a team to auto-follow all its matches, or star individual matches. Export your schedule with the .ics button on the Following tab.</div>
+  <div class="note muted">2026 World Cup: 11 Jun – 19 Jul, USA · Canada · Mexico. Final: MetLife Stadium, 8:00pm UK, 19 Jul.</div>`;
 }
 
 function render(){
-  ({today:renderToday,fixtures:renderFixtures,groups:renderGroups,knockout:renderKnockout,teams:renderTeams,mine:renderMine,info:renderInfo}[activeTab])();
+  ({today:renderToday,fixtures:renderFixtures,groups:renderGroups,stats:renderStats,knockout:renderKnockout,teams:renderTeams,mine:renderMine,info:renderInfo}[activeTab])();
+  bindSlabClicks(view);
 }
 
-/* ============================================================
-   MATCH / TEAM DETAIL SHEET
-   ============================================================ */
+/* ===== Sheets ===== */
 const scrim=document.getElementById("scrim"), sheet=document.getElementById("sheet");
 function closeSheet(){ scrim.dataset.open="0"; sheet.dataset.open="0"; }
 scrim.onclick=closeSheet;
@@ -624,24 +617,13 @@ function openMatch(id){
   const v=venue(m.venue); const st=matchStatus(m); const fwd=isFollowedMatch(m);
   const sc=m.score?`${m.score[0]}–${m.score[1]}`:(st==="upcoming"?fmtUK(m.t):"0–0");
   let events="";
-  if(m.events && m.events.length){
-    events=`<div class="eyebrow">Match events</div><div class="tl">`+
-      m.events.map(e=>{const ic=e.type==="goal"?"⚽":e.type==="yellow"?"🟨":e.type==="red"?"🟥":e.type==="sub"?"🔁":"•";
-        return `<div class="ev"><span class="min">${esc(e.minute||"")}'</span><span class="ic">${ic}</span><span class="who">${esc(e.player||"")}</span> <span class="muted">${esc(nm(e.team)||e.team||"")}</span></div>`;}).join("")+`</div>`;
-  }
+  if(m.events && m.events.length){ events=`<div class="eyebrow">Match events</div><div class="tl">`+ m.events.map(e=>{const ic=e.type==="goal"?"⚽":e.type==="yellow"?"🟨":e.type==="red"?"🟥":e.type==="sub"?"🔁":"•"; return `<div class="ev"><span class="min">${esc(e.minute||"")}'</span><span class="ic">${ic}</span><span class="who">${esc(e.player||"")}</span> <span class="muted">${esc(nm(e.team)||e.team||"")}</span></div>`;}).join("")+`</div>`; }
   let lineups="";
-  if(m.lineups && (m.lineups[m.h]||m.lineups[m.a])){
-    const col=(c)=>`<div class="lu"><h4>${fl(c)} ${esc(nm(c))}</h4>${(m.lineups[c]||[]).map(p=>`<div>${esc(p)}</div>`).join("")||'<div class="muted">XI via live update</div>'}</div>`;
-    lineups=`<div class="eyebrow">Line-ups</div><div class="lineups">${col(m.h)}${col(m.a)}</div>`;
-  }
+  if(m.lineups && (m.lineups[m.h]||m.lineups[m.a])){ const col=(c)=>`<div class="lu"><h4>${fl(c)} ${esc(nm(c))}</h4>${(m.lineups[c]||[]).map(p=>`<div>${esc(p)}</div>`).join("")||'<div class="muted">XI via live update</div>'}</div>`; lineups=`<div class="eyebrow">Line-ups</div><div class="lineups">${col(m.h)}${col(m.a)}</div>`; }
   sheet.innerHTML=`
     <button class="x" onclick="WC.close()">✕</button><div class="grab"></div>
     <div class="topline" style="justify-content:center;color:var(--muted)">${m.stage==="group"?"Group "+m.group:esc(m.round||"")} · ${esc(v.n)}, ${esc(v.city)} ${v.country}</div>
-    <div class="sbig">
-      <div><div class="fl">${fl(m.h)}</div><div class="tnm">${esc(nm(m.h))}</div></div>
-      <div class="sc">${sc}</div>
-      <div><div class="fl">${fl(m.a)}</div><div class="tnm">${esc(nm(m.a))}</div></div>
-    </div>
+    <div class="sbig"><div><div class="fl">${fl(m.h)}</div><div class="tnm">${esc(nm(m.h))}</div></div><div class="sc">${sc}</div><div><div class="fl">${fl(m.a)}</div><div class="tnm">${esc(nm(m.a))}</div></div></div>
     <div class="meta">
       <span class="chip">🇬🇧 <b>${fmtUK(m.t,true)}</b> UK</span>
       <span class="chip">📍 <b>${fmtLocal(m.t,v.tz)}</b> local</span>
@@ -650,10 +632,7 @@ function openMatch(id){
     </div>
     ${events}${lineups}
     ${!events&&!lineups?`<div class="note">Line-ups, goalscorers, cards and subs appear here once the match is near or underway — tap <b>Live</b> to pull the latest.</div>`:""}
-    <div class="sheetbtns">
-      <button class="sbtn mag" id="favm" data-on="${fwd?1:0}">★ ${fwd?"Following":"Follow match"}</button>
-      <button class="sbtn" id="icsm">📅 Add to calendar</button>
-    </div>`;
+    <div class="sheetbtns"><button class="sbtn mag" id="favm" data-on="${fwd?1:0}">★ ${fwd?"Following":"Follow match"}</button><button class="sbtn" id="icsm">📅 Add to calendar</button></div>`;
   scrim.dataset.open="1"; sheet.dataset.open="1";
   document.getElementById("favm").onclick=function(){ toggleMatch(m.id); this.dataset.on=state.followMatches.includes(m.id)?1:0; this.textContent="★ "+(isFollowedMatch(m)?"Following":"Follow match"); render(); };
   document.getElementById("icsm").onclick=()=>downloadICS([m],`wc26-${m.h}-${m.a}.ics`);
@@ -661,49 +640,29 @@ function openMatch(id){
 
 function openTeam(c){
   const fixtures=MATCHES.filter(m=>m.h===c||m.a===c).sort((a,b)=>new Date(a.t)-new Date(b.t));
-  const on=state.followTeams.includes(c);
-  const g=team(c)[2];
+  const on=state.followTeams.includes(c); const g=team(c)[2];
   sheet.innerHTML=`
     <button class="x" onclick="WC.close()">✕</button><div class="grab"></div>
     <div class="sbig" style="grid-template-columns:1fr"><div><div class="fl" style="font-size:54px">${fl(c)}</div><div class="tnm" style="font-size:18px;margin-top:8px">${esc(nm(c))}</div><div class="muted" style="margin-top:2px">Group ${g}</div></div></div>
-    <div class="sheetbtns">
-      <button class="sbtn mag" id="favt" data-on="${on?1:0}">★ ${on?"Following":"Follow team"}</button>
-      <a class="sbtn" style="text-decoration:none;text-align:center" href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026" target="_blank" rel="noopener">Official squad ↗</a>
-    </div>
-    <div class="eyebrow">Group fixtures</div>
-    ${fixtures.length?fixtures.map(slabHTML).join(""):`<div class="note">${esc(nm(c))}'s scheduled matches will populate here. Tap <b>Live</b> to pull the full set.</div>`}`;
+    <div class="sheetbtns"><button class="sbtn mag" id="favt" data-on="${on?1:0}">★ ${on?"Following":"Follow team"}</button><a class="sbtn" style="text-decoration:none;text-align:center" href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026" target="_blank" rel="noopener">Official squad ↗</a></div>
+    <div class="eyebrow">Group fixtures</div>${fixtures.length?fixtures.map(slabHTML).join(""):`<div class="note">Fixtures will populate here.</div>`}`;
   scrim.dataset.open="1"; sheet.dataset.open="1";
-  document.getElementById("favt").onclick=function(){ toggleTeam(c); this.dataset.on=on?0:1; render(); openTeam(c); };
+  document.getElementById("favt").onclick=function(){ toggleTeam(c); render(); openTeam(c); };
   bindSlabClicks(sheet);
 }
 
-/* ============================================================
-   FOLLOW TOGGLES + delegated clicks
-   ============================================================ */
-function toggleTeam(c){ const i=state.followTeams.indexOf(c); i<0?state.followTeams.push(c):state.followTeams.splice(i,1); saveState(); updateNext(); }
-function toggleMatch(id){ const i=state.followMatches.indexOf(id); i<0?state.followMatches.push(id):state.followMatches.splice(i,1); saveState(); updateNext(); }
-
+/* ===== Follow toggles + delegated clicks ===== */
+function toggleTeam(c){ const i=state.followTeams.indexOf(c); i<0?state.followTeams.push(c):state.followTeams.splice(i,1); saveState(); updateNextCountdown(); }
+function toggleMatch(id){ const i=state.followMatches.indexOf(id); i<0?state.followMatches.push(id):state.followMatches.splice(i,1); saveState(); updateNextCountdown(); }
 function bindSlabClicks(root){
   root.querySelectorAll("[data-mid]").forEach(s=>{ s.onclick=e=>{ if(e.target.closest("[data-fav]"))return; openMatch(s.dataset.mid); }; });
   root.querySelectorAll("[data-fav]").forEach(b=>{ b.onclick=e=>{e.stopPropagation(); toggleMatch(b.dataset.fav); b.dataset.on=state.followMatches.includes(b.dataset.fav)?1:0; if(activeTab!=='today')render();}; });
   root.querySelectorAll("[data-team]").forEach(t=>{ t.onclick=e=>{ if(e.target.closest("[data-fteam]"))return; openTeam(t.dataset.team); }; });
   root.querySelectorAll("[data-fteam]").forEach(s=>{ s.onclick=e=>{e.stopPropagation(); toggleTeam(s.dataset.fteam); s.dataset.on=state.followTeams.includes(s.dataset.fteam)?1:0; render();}; });
 }
-// delegate on the main view after each render
-const _render=render;
-render=function(){ _render(); bindSlabClicks(view); };
 
-/* ============================================================
-   CLOCK + NEXT-MATCH COUNTDOWN
-   ============================================================ */
-function tick(){
-  const now=new Date();
-  document.getElementById("clock").innerHTML =
-    new Intl.DateTimeFormat("en-GB",{timeZone:TZ_UK,hour:"2-digit",minute:"2-digit",hour12:false}).format(now)+
-    "<small>UK · LONDON</small>";
-  updateNextCountdown();
-}
-function updateNext(){ updateNextCountdown(); }
+/* ===== Clock + countdown ===== */
+function tick(){ document.getElementById("clock").innerHTML = new Intl.DateTimeFormat("en-GB",{timeZone:TZ_UK,hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date())+"<small>UK · LONDON</small>"; updateNextCountdown(); }
 function updateNextCountdown(){
   const m=nextFollowed(); const wrap=document.getElementById("nextWrap");
   if(!m){ wrap.style.display="none"; return; }
@@ -715,97 +674,50 @@ function updateNextCountdown(){
   const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),mn=Math.floor(diff%36e5/6e4);
   cd.firstChild.nodeValue = d>0?`${d}d ${h}h`:`${h}h ${mn}m`;
   when.textContent=fmtUK(m.t,true)+" UK";
-  // kickoff alert (followed match within 15 min, once)
-  if(state.notify && diff>0 && diff<15*6e4 && state.lastSeen["ko_"+m.id]!==1){
-    state.lastSeen["ko_"+m.id]=1; saveState();
-    notify("Kick-off soon","⚽ "+nm(m.h)+" v "+nm(m.a)+" starts at "+fmtUK(m.t)+" UK","ko");
-  }
+  if(state.notify && diff>0 && diff<15*6e4 && state.lastSeen["ko_"+m.id]!==1){ state.lastSeen["ko_"+m.id]=1; saveState(); notify("Kick-off soon","⚽ "+nm(m.h)+" v "+nm(m.a)+" starts at "+fmtUK(m.t)+" UK","ko"); }
 }
 
-/* ============================================================
-   NOTIFICATIONS (browser best-effort + in-app toast)
-   ============================================================ */
-function toast(title,body,cls=""){
-  const t=el(`<div class="toast ${cls}"><b>${esc(title)}</b><br>${esc(body)}</div>`);
-  document.getElementById("toasts").appendChild(t);
-  setTimeout(()=>{t.style.opacity="0";t.style.transition="opacity .4s";setTimeout(()=>t.remove(),400);},6000);
-}
-function notify(title,body,cls=""){
-  toast(title,body,cls);
-  try{ if(state.notify && "Notification" in window && Notification.permission==="granted"){ new Notification(title,{body}); } }catch(e){}
-}
+/* ===== Notifications ===== */
+function toast(title,body,cls=""){ const t=el(`<div class="toast ${cls}"><b>${esc(title)}</b><br>${esc(body)}</div>`); document.getElementById("toasts").appendChild(t); setTimeout(()=>{t.style.opacity="0";t.style.transition="opacity .4s";setTimeout(()=>t.remove(),400);},6000); }
+function notify(title,body,cls=""){ toast(title,body,cls); try{ if(state.notify && "Notification" in window && Notification.permission==="granted"){ new Notification(title,{body}); } }catch(e){} }
 const bell=document.getElementById("bell");
 bell.onclick=async function(){
   state.notify=!state.notify;
-  if(state.notify){
-    try{ if("Notification" in window && Notification.permission==="default"){ await Notification.requestPermission(); } }catch(e){}
-    toast("Alerts on","You'll be nudged before followed matches kick off, and when goals land.","");
-  } else { toast("Alerts off","",""); }
-  this.dataset.on=state.notify?1:0;
-  document.getElementById("bellTxt").textContent=state.notify?"Alerts on":"Alerts off";
-  saveState();
+  if(state.notify){ try{ if("Notification" in window && Notification.permission==="default"){ await Notification.requestPermission(); } }catch(e){} toast("Alerts on","You'll be nudged before followed matches kick off, and when goals land.",""); } else { toast("Alerts off","",""); }
+  this.dataset.on=state.notify?1:0; document.getElementById("bellTxt").textContent=state.notify?"Alerts on":"Alerts off"; saveState();
 };
 
-/* ============================================================
-   ICS CALENDAR EXPORT
-   ============================================================ */
+/* ===== ICS export ===== */
 function icsTime(iso){ return new Date(iso).toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,""); }
 function buildICS(list){
   let out="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//WC26 Matchday Board//EN\r\nCALSCALE:GREGORIAN\r\n";
   list.forEach(m=>{ const v=venue(m.venue); const end=new Date(new Date(m.t).getTime()+115*6e4);
-    out+="BEGIN:VEVENT\r\n"+
-      `UID:wc26-${m.id}@matchday\r\n`+
-      `DTSTAMP:${icsTime(new Date().toISOString())}\r\n`+
-      `DTSTART:${icsTime(m.t)}\r\n`+
-      `DTEND:${icsTime(end.toISOString())}\r\n`+
-      `SUMMARY:${nm(m.h)} v ${nm(m.a)} — WC26${m.group?" Grp "+m.group:""}\r\n`+
-      `LOCATION:${v.n}\\, ${v.city}\r\n`+
-      `DESCRIPTION:2026 FIFA World Cup. Kick-off ${fmtUK(m.t)} UK / ${fmtLocal(m.t,v.tz)} local.\r\n`+
-      "BEGIN:VALARM\r\nTRIGGER:-PT30M\r\nACTION:DISPLAY\r\nDESCRIPTION:Kick-off in 30 min\r\nEND:VALARM\r\n"+
-      "END:VEVENT\r\n";
-  });
+    out+="BEGIN:VEVENT\r\n"+`UID:wc26-${m.id}@matchday\r\n`+`DTSTAMP:${icsTime(new Date().toISOString())}\r\n`+`DTSTART:${icsTime(m.t)}\r\n`+`DTEND:${icsTime(end.toISOString())}\r\n`+`SUMMARY:${nm(m.h)} v ${nm(m.a)} — WC26${m.group?" Grp "+m.group:""}\r\n`+`LOCATION:${v.n}\\, ${v.city}\r\n`+`DESCRIPTION:Kick-off ${fmtUK(m.t)} UK / ${fmtLocal(m.t,v.tz)} local.${TVUK[m.id]?" Watch on "+TVUK[m.id]+".":""}\r\n`+"BEGIN:VALARM\r\nTRIGGER:-PT30M\r\nACTION:DISPLAY\r\nDESCRIPTION:Kick-off in 30 min\r\nEND:VALARM\r\n"+"END:VEVENT\r\n"; });
   return out+"END:VCALENDAR";
 }
-function downloadICS(list,fname){
-  if(!list.length){ toast("Nothing to add","Follow a team or match first.",""); return; }
-  const blob=new Blob([buildICS(list)],{type:"text/calendar"}); const url=URL.createObjectURL(blob);
-  const a=document.createElement("a"); a.href=url; a.download=fname||"wc26-my-matches.ics"; a.click();
-  setTimeout(()=>URL.revokeObjectURL(url),2000); toast("Calendar file ready","Open it to add these to your calendar with 30-min reminders.","");
-}
+function downloadICS(list,fname){ if(!list.length){ toast("Nothing to add","Follow a team or match first.",""); return; } const blob=new Blob([buildICS(list)],{type:"text/calendar"}); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=fname||"wc26-my-matches.ics"; a.click(); setTimeout(()=>URL.revokeObjectURL(url),2000); toast("Calendar file ready","Open it to add these to your calendar with 30-min reminders.",""); }
 function exportICS(){ downloadICS(followedFixtures(),"wc26-my-matches.ics"); }
 
-/* ============================================================
-   LIVE REFRESH — Anthropic API + web search (graceful fallback)
-   ============================================================ */
+/* ===== Live refresh (tries both proxy paths; football-data + optional AI) ===== */
 const refreshBtn=document.getElementById("refresh");
-let refreshing=false;
-refreshBtn.onclick=liveRefresh;
-
-// Your serverless proxy (holds the API key server-side). Default works on Vercel.
-// On Netlify, change to "/.netlify/functions/live".
-const LIVE_ENDPOINT="/api/live";
+let refreshing=false; refreshBtn.onclick=liveRefresh;
+const LIVE_ENDPOINTS=["/api/live","/.netlify/functions/live"];
 
 async function fetchLive(ukToday){
-  // 1) Preferred: your serverless proxy returns {matches:[...]}
-  try{
-    const res=await fetch(LIVE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({date:ukToday})});
-    if(res.ok){ const d=await res.json(); if(Array.isArray(d)) return d; if(d&&Array.isArray(d.matches)) return d.matches; }
-  }catch(e){ /* proxy not deployed yet — try fallback */ }
-  // 2) Fallback: direct call (only works inside the Claude preview, not on a live site)
-  const prompt=
-`Use web search to find the live and finished 2026 FIFA World Cup matches for ${ukToday} (and any in progress now). `+
-`Return ONLY a JSON array, no prose, no markdown fences. Each element: `+
-`{"home":"<full country name>","away":"<full country name>","homeScore":<int|null>,"awayScore":<int|null>,`+
-`"status":"live"|"ft"|"ht"|"upcoming","minute":"<string|null>",`+
-`"events":[{"team":"<full country name>","player":"<name>","minute":"<num>","type":"goal"|"yellow"|"red"|"sub"}]}. `+
-`If no matches are live or finished today, return [].`;
-  const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,messages:[{role:"user",content:prompt}],
-      tools:[{type:"web_search_20250305",name:"web_search"}]})});
-  const data=await res.json();
-  const text=(data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
-  const jsonStr=(text.match(/\[[\s\S]*\]/)||[text])[0].replace(/```json|```/g,"").trim();
-  return JSON.parse(jsonStr);
+  let sawEndpoint=false;
+  for(const ep of LIVE_ENDPOINTS){
+    let res;
+    try{ res=await fetch(ep,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({date:ukToday})}); }
+    catch(e){ continue; }
+    if(res.status===404){ continue; }
+    sawEndpoint=true;
+    if(res.ok){ const d=await res.json(); const data=Array.isArray(d)?{matches:d,stats:{}}:{matches:(d&&d.matches)||[],stats:(d&&d.stats)||{},source:(d&&d.source)||[]}; data.ok=true; return data; }
+    let detail=""; try{ detail=(await res.json()).error||""; }catch(_){}
+    if(/no data source/i.test(detail)) return {ok:false, problem:"nosource", detail, matches:[], stats:{}};
+    if(/api[_ ]?key|token/i.test(detail) || res.status===500) return {ok:false, problem:"key", detail, matches:[], stats:{}};
+    return {ok:false, problem:"server", detail, matches:[], stats:{}};
+  }
+  return {ok:false, problem: sawEndpoint?"unreachable":"endpoint", matches:[], stats:{}};
 }
 
 async function liveRefresh(){
@@ -813,66 +725,55 @@ async function liveRefresh(){
   const txt=document.getElementById("refTxt"); txt.textContent="Updating…";
   try{
     const ukToday=new Intl.DateTimeFormat("en-GB",{timeZone:TZ_UK,weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());
-    const arr=await fetchLive(ukToday);
-    let merged=0;
-    (arr||[]).forEach(r=>{ if(mergeLive(r)) merged++; });
-    state.refreshedAt=Date.now(); saveState();
-    render();
+    const out=await fetchLive(ukToday);
     txt.textContent="Live";
-    toast(merged?"Updated":"Up to date", merged? `${merged} match${merged>1?"es":""} refreshed · ${fmtUK(new Date().toISOString())} UK` : "No live or finished matches found right now.","");
-  }catch(e){
-    txt.textContent="Live";
-    toast("Couldn't reach live data","Showing the built-in schedule. If you've just deployed, check the API key is set on your host.","");
-  }
+    if(!out.ok){
+      const msg={
+        endpoint:"The live function isn't deployed. Check netlify/functions/live.js is in your repo and that Netlify → Site → Functions lists a 'live' function.",
+        nosource:"The data function is running, but no data source is set. Add FOOTBALL_DATA_TOKEN in your host's environment variables, then redeploy.",
+        key:"The data function is running, but its token isn't set on your host yet. Add it and redeploy.",
+        server:"The data function returned an error. Check its logs on your host.",
+        unreachable:"Couldn't reach the data function. The built-in schedule, standings and stats still work."
+      }[out.problem]||"Couldn't reach live data.";
+      toast("Live data unavailable", out.detail||msg, "");
+      refreshing=false; return;
+    }
+    let merged=0; (out.matches||[]).forEach(r=>{ if(mergeLive(r)) merged++; });
+    if(out.stats && (out.stats.scorers||out.stats.assists||out.stats.cards||out.stats.cleanSheets)) state.stats=out.stats;
+    state.refreshedAt=Date.now(); saveState(); render();
+    const hasStats=out.stats && ((out.stats.scorers&&out.stats.scorers.length)||(out.stats.cards&&out.stats.cards.length));
+    const src=(out.source&&out.source.length)?" · via "+out.source.join(" + "):"";
+    toast(merged||hasStats?"Updated":"Up to date", merged||hasStats ? `${merged} match${merged===1?"":"es"} refreshed${hasStats?" · leaders updated":""}${src} · ${fmtUK(new Date().toISOString())} UK` : `Connected${src} — no live matches right now. The tournament starts 11 June.`,"");
+  }catch(e){ txt.textContent="Live"; toast("Live data unavailable","Showing the built-in schedule. The data function couldn't be reached.",""); }
   refreshing=false;
 }
 
 const NAME2CODE=(()=>{ const m={}; Object.keys(TEAMS).forEach(c=>{ m[nm(c).toLowerCase()]=c; m[c.toLowerCase()]=c; });
-  // a few aliases
-  Object.assign(m,{"usa":"USA","united states of america":"USA","korea republic":"KOR","south korea":"KOR",
-   "ivory coast":"CIV","cote d'ivoire":"CIV","turkey":"TUR","türkiye":"TUR","czech republic":"CZE","czechia":"CZE",
-   "cape verde":"CPV","cabo verde":"CPV","bosnia and herzegovina":"BIH","dr congo":"COD","congo dr":"COD"}); return m; })();
+  Object.assign(m,{"usa":"USA","united states of america":"USA","united states":"USA","korea republic":"KOR","south korea":"KOR","republic of korea":"KOR","ivory coast":"CIV","cote d'ivoire":"CIV","turkey":"TUR","türkiye":"TUR","czech republic":"CZE","czechia":"CZE","cape verde":"CPV","cabo verde":"CPV","bosnia and herzegovina":"BIH","bosnia-herzegovina":"BIH","dr congo":"COD","congo dr":"COD","curacao":"CUW","ir iran":"IRN","iran":"IRN","saudi arabia":"KSA"}); return m; })();
 function code(name){ if(!name) return null; const k=String(name).toLowerCase().trim(); return NAME2CODE[k]||(TEAMS[name.toUpperCase()]?name.toUpperCase():null); }
 
 function mergeLive(r){
   const h=code(r.home), a=code(r.away); if(!h||!a) return false;
   let m=MATCHES.find(x=>(x.h===h&&x.a===a)||(x.h===a&&x.a===h));
-  const flip=m&&m.h!==h; // result reported in opposite orientation
-  if(!m){ // create a discovered fixture (e.g. later-round / unseeded)
-    m={id:"live_"+h+a, stage:"group", group:team(h)[2]===team(a)[2]?team(h)[2]:"", h, a, venue:"", t:new Date().toISOString()};
-    MATCHES.push(m);
-  }
+  const flip=m&&m.h!==h;
+  if(!m){ m={id:"live_"+h+a, stage:"group", group:team(h)[2]===team(a)[2]?team(h)[2]:"", h, a, venue:"", t:new Date().toISOString()}; MATCHES.push(m); }
   const prev=m.score?m.score.slice():null;
-  if(r.homeScore!=null && r.awayScore!=null){
-    m.score=flip?[r.awayScore,r.homeScore]:[r.homeScore,r.awayScore];
-  }
+  if(r.homeScore!=null && r.awayScore!=null){ m.score=flip?[r.awayScore,r.homeScore]:[r.homeScore,r.awayScore]; }
   if(r.status) m.status=r.status; if(r.minute) m.minute=r.minute;
   if(Array.isArray(r.events)&&r.events.length){ m.events=r.events.map(e=>({team:code(e.team)||e.team,player:e.player,minute:e.minute,type:e.type})); }
-  // goal alert for followed matches
-  if(state.notify && prev && m.score && isFollowedMatch(m) && (m.score[0]+m.score[1])>(prev[0]+prev[1])){
-    notify("GOAL!", `${fl(m.h)} ${m.score[0]}–${m.score[1]} ${m.a} ${fl(m.a)}`,"goal");
-  }
+  if(state.notify && prev && m.score && isFollowedMatch(m) && (m.score[0]+m.score[1])>(prev[0]+prev[1])){ notify("GOAL!", `${fl(m.h)} ${m.score[0]}–${m.score[1]} ${m.a} ${fl(m.a)}`,"goal"); }
   return true;
 }
 
-/* ============================================================
-   GLOBAL + INIT
-   ============================================================ */
+/* ===== Init ===== */
 window.WC={close:closeSheet};
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheet(); });
-
 (async function init(){
   await loadState();
-  bell.dataset.on=state.notify?1:0;
-  document.getElementById("bellTxt").textContent=state.notify?"Alerts on":"Alerts off";
-  renderTabs(); render(); tick();
-  setInterval(tick,30000); // clock + countdown + kickoff alerts
+  bell.dataset.on=state.notify?1:0; document.getElementById("bellTxt").textContent=state.notify?"Alerts on":"Alerts off";
+  renderTabs(); render(); tick(); setInterval(tick,30000);
 })();
-
-// Register the service worker (enables offline + install + push). Fails silently in previews.
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{ navigator.serviceWorker.register("service-worker.js").catch(()=>{}); });
-}
+if("serviceWorker" in navigator){ window.addEventListener("load",()=>{ navigator.serviceWorker.register("service-worker.js").catch(()=>{}); }); }
 </script>
 </body>
 </html>

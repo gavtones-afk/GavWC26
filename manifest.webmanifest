@@ -1,17 +1,15 @@
 {
   "name": "World Cup 2026 — Matchday Board",
   "short_name": "WC26",
-  "description": "Track every 2026 World Cup match, group, kick-off (UK time), scorer, card and result. Follow your teams and get alerts.",
-  "start_url": "./",
-  "scope": "./",
+  "description": "Every 2026 World Cup match: UK kick-off times, BBC/ITV, live scores, stats, groups and your followed teams.",
+  "start_url": "./index.html",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#0A0E1A",
   "theme_color": "#0A0E1A",
-  "categories": ["sports"],
+  "orientation": "portrait",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
     { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
