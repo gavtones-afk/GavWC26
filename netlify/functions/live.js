@@ -1,27 +1,8 @@
-// Netlify function -> /.netlify/functions/live  (and /api/live via netlify.toml redirect)
-//
-// Data sources (set either or both as environment variables in Netlify):
-//   FOOTBALL_DATA_TOKEN  -> reliable live scores, results & standings (free tier at football-data.org)
-//   ANTHROPIC_API_KEY    -> optional: Golden Boot / assists / cards via web search (best-effort)
-//
-// With at least one set, /api/live returns { matches, stats, source }.
+// Netlify function -> available at /.netlify/functions/live
+// If you deploy on Netlify, change LIVE_ENDPOINT in index.html to "/.netlify/functions/live".
+// Set the key in Netlify: Site settings -> Environment variables -> ANTHROPIC_API_KEY
 
-const FD = "https://api.football-data.org/v4";
 const MODEL = "claude-sonnet-4-20250514";
-const STATUS = { IN_PLAY: "live", PAUSED: "ht", FINISHED: "ft" };
-
-function mapMatch(m) {
-  const ft = (m.score && m.score.fullTime) || {};
-  return {
-    home: (m.homeTeam && (m.homeTeam.tla || m.homeTeam.name)) || "",
-    away: (m.awayTeam && (m.awayTeam.tla || m.awayTeam.name)) || "",
-    homeScore: ft.home != null ? ft.home : null,
-    awayScore: ft.away != null ? ft.away : null,
-    status: STATUS[m.status] || "upcoming",
-    minute: m.minute != null ? String(m.minute) : null,
-    events: []
-  };
-}
 
 exports.handler = async (event) => {
   const headers = {
@@ -31,61 +12,30 @@ exports.handler = async (event) => {
   };
   if (event.httpMethod === "OPTIONS") return { statusCode: 200, headers, body: "" };
   if (event.httpMethod !== "POST") return { statusCode: 405, headers, body: JSON.stringify({ error: "POST only" }) };
-
-  const FD_TOKEN = process.env.FOOTBALL_DATA_TOKEN;
-  const AN_KEY = process.env.ANTHROPIC_API_KEY;
-  if (!FD_TOKEN && !AN_KEY) {
-    return { statusCode: 500, headers, body: JSON.stringify({ error: "No data source configured. Add FOOTBALL_DATA_TOKEN (recommended) and/or ANTHROPIC_API_KEY in Netlify, then redeploy.", matches: [], stats: {} }) };
-  }
+  if (!process.env.ANTHROPIC_API_KEY) return { statusCode: 500, headers, body: JSON.stringify({ error: "ANTHROPIC_API_KEY not set" }) };
 
   let date = new Date().toDateString();
   try { date = JSON.parse(event.body || "{}").date || date; } catch (_) {}
 
-  const out = { matches: [], stats: { scorers: [], assists: [], cards: [], cleanSheets: [] }, source: [], asOf: new Date().toISOString() };
+  const prompt =
+    `Use web search to find the live and finished 2026 FIFA World Cup matches for ${date} (and any in progress now). ` +
+    `Return ONLY a JSON array, no prose, no markdown fences. Each element: ` +
+    `{"home":"<full country name>","away":"<full country name>","homeScore":<int|null>,"awayScore":<int|null>,` +
+    `"status":"live"|"ft"|"ht"|"upcoming","minute":"<string|null>",` +
+    `"events":[{"team":"<full country name>","player":"<name>","minute":"<num>","type":"goal"|"yellow"|"red"|"sub"}]}. ` +
+    `If no matches are live or finished today, return [].`;
 
-  // 1) football-data.org — live + finished matches (reliable)
-  if (FD_TOKEN) {
-    try {
-      const r = await fetch(`${FD}/competitions/WC/matches?status=IN_PLAY,PAUSED,FINISHED`, { headers: { "X-Auth-Token": FD_TOKEN } });
-      if (r.ok) { const d = await r.json(); out.matches = (d.matches || []).map(mapMatch); out.source.push("football-data"); }
-    } catch (_) {}
-    // top scorers (works on paid tier; skipped quietly if your tier doesn't allow it)
-    try {
-      const r = await fetch(`${FD}/competitions/WC/scorers?limit=15`, { headers: { "X-Auth-Token": FD_TOKEN } });
-      if (r.ok) {
-        const d = await r.json();
-        out.stats.scorers = (d.scorers || []).map(s => ({ player: s.player && s.player.name, team: s.team && (s.team.tla || s.team.name), goals: s.goals || 0 }));
-        out.stats.assists = (d.scorers || []).filter(s => s.assists).map(s => ({ player: s.player && s.player.name, team: s.team && (s.team.tla || s.team.name), assists: s.assists })).sort((a, b) => b.assists - a.assists);
-      }
-    } catch (_) {}
+  try {
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01" },
+      body: JSON.stringify({ model: MODEL, max_tokens: 1500, messages: [{ role: "user", content: prompt }], tools: [{ type: "web_search_20250305", name: "web_search" }] })
+    });
+    const data = await r.json();
+    const text = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("\n");
+    const m = text.match(/\[[\s\S]*\]/);
+    return { statusCode: 200, headers, body: JSON.stringify({ matches: m ? JSON.parse(m[0]) : [], asOf: new Date().toISOString() }) };
+  } catch (e) {
+    return { statusCode: 502, headers, body: JSON.stringify({ error: "upstream failed", matches: [] }) };
   }
-
-  // 2) Anthropic web search — optional enrichment (cards/assists; matches+scorers only if football-data gave none)
-  if (AN_KEY) {
-    try {
-      const prompt =
-        `Use web search for 2026 FIFA World Cup data as of ${date}. Return ONLY a JSON object, no prose or fences: ` +
-        `{"matches":[{"home":"<country>","away":"<country>","homeScore":<int|null>,"awayScore":<int|null>,"status":"live"|"ft"|"ht"|"upcoming","minute":"<string|null>","events":[{"team":"<country>","player":"<name>","minute":"<num>","type":"goal"|"yellow"|"red"|"sub"}]}],` +
-        `"stats":{"scorers":[{"player":"<name>","team":"<country>","goals":<int>}],"assists":[{"player":"<name>","team":"<country>","assists":<int>}],"cards":[{"player":"<name>","team":"<country>","yellow":<int>,"red":<int>}]}}. ` +
-        `Top 10 each. Use full country names. If the tournament has not started, use empty arrays.`;
-      const r = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "content-type": "application/json", "x-api-key": AN_KEY, "anthropic-version": "2023-06-01" },
-        body: JSON.stringify({ model: MODEL, max_tokens: 2000, messages: [{ role: "user", content: prompt }], tools: [{ type: "web_search_20250305", name: "web_search" }] })
-      });
-      const data = await r.json();
-      const text = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("\n");
-      const m = text.match(/\{[\s\S]*\}/);
-      const p = m ? JSON.parse(m[0]) : {};
-      if (!out.matches.length && Array.isArray(p.matches)) out.matches = p.matches;
-      if (p.stats) {
-        if (!out.stats.scorers.length && p.stats.scorers) out.stats.scorers = p.stats.scorers;
-        if (!out.stats.assists.length && p.stats.assists) out.stats.assists = p.stats.assists;
-        if (p.stats.cards && p.stats.cards.length) out.stats.cards = p.stats.cards;
-      }
-      out.source.push("anthropic");
-    } catch (_) {}
-  }
-
-  return { statusCode: 200, headers, body: JSON.stringify(out) };
 };

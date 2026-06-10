@@ -2,7 +2,6 @@
 
 An installable web app that tracks every 2026 World Cup match: groups, stadiums,
 UK kick-off times, scorers, cards, subs, results, standings, the knockout bracket,
-a live stats tab (total goals, Golden Boot, assists, cards, clean sheets),
 followed teams, calendar export and alerts.
 
 This folder is a complete Progressive Web App. Host it once and anyone can install
@@ -21,64 +20,38 @@ it on their phone from the browser. No app store needed.
 - `netlify/functions/live.js` — the same thing for Netlify.
 - `netlify.toml` — Netlify config (ignore if you use Vercel).
 
-## Live data: where it comes from
+## The one thing to know about live scores
 
-The "Live" button calls a tiny serverless function (`api/live.js` on Vercel,
-`netlify/functions/live.js` on Netlify) that fetches data and returns it to the app.
-Keys live in that function, never in the phone's code. You set either or both of
-these as environment variables on your host:
+The "Live" button fetches current scores by asking an AI model with web search.
+That needs an API key, which must never sit in the phone's code or anyone could
+read and abuse it. So the key lives in the serverless function (`api/live.js`),
+and the app calls that function instead.
 
-- `FOOTBALL_DATA_TOKEN` (recommended) — reliable live scores, results and standings
-  from football-data.org. The free tier covers the World Cup. This drives the
-  schedule scores, the standings, the total-goals counter and clean sheets.
-- `ANTHROPIC_API_KEY` (optional) — adds the Golden Boot, assists and cards
-  leaderboards via AI web search. Best-effort, not broadcast-grade. You can also
-  get reliable scorers/cards by upgrading football-data.org to its paid tier.
-
-With at least one set, live data works. Everything else — the full schedule,
-bracket, following, calendar export, kick-off alerts — works with no key at all,
-even offline.
-
-### Get a football-data.org token (free, ~2 minutes)
-
-1. Register at football-data.org/client/register and confirm your email.
-2. Copy the API token from your account page.
-3. Add it on your host as `FOOTBALL_DATA_TOKEN` (see deploy steps below), redeploy.
-
-Free tier is 10 requests/minute, which is plenty — the app only fetches when you
-tap Live.
+Everything else — the full schedule, standings, bracket, following, calendar
+export, kick-off alerts — works with no key and no internet after first load.
 
 ## Deploy in ~5 minutes (Vercel, recommended)
 
 1. Create a free account at vercel.com.
-2. Get a football-data.org token (above). Optionally an Anthropic key too.
+2. Get an Anthropic API key at console.anthropic.com (Settings -> API Keys).
 3. Install the CLI: `npm i -g vercel`
 4. In this folder run: `vercel`  (accept the defaults).
-5. Add your token: `vercel env add FOOTBALL_DATA_TOKEN`  (paste it, choose Production).
-   Optionally also: `vercel env add ANTHROPIC_API_KEY`
+5. Add your key: `vercel env add ANTHROPIC_API_KEY`  (paste the key, choose Production).
 6. Deploy for real: `vercel --prod`
 
 You get a URL like `https://your-app.vercel.app`. The `api/live.js` file is
 automatically served at `/api/live`, which is what the app already calls. Done.
 
-
 (Prefer clicking to typing? Push this folder to a GitHub repo, then "Import Project"
-in Vercel and add the `FOOTBALL_DATA_TOKEN` (and optional `ANTHROPIC_API_KEY`)
-environment variables in the dashboard.)
+in Vercel and add the `ANTHROPIC_API_KEY` environment variable in the dashboard.)
 
 ## Deploy on Netlify instead
 
-1. Create a free Netlify account and get a football-data.org token (above).
-2. Drag this whole folder onto the Netlify dashboard (so `netlify.toml` is at the
-   root of what you drop), or connect a GitHub repo. The included `netlify.toml`
-   builds the function and redirects `/api/live` to it, so no code editing is needed.
-3. In Site settings -> Environment variables, add `FOOTBALL_DATA_TOKEN`
-   (and optionally `ANTHROPIC_API_KEY`).
-4. Trigger a redeploy so the new variables and function are picked up.
-
-If "Live" says the function wasn't found, the deploy that's up is an older one
-without the redirect, or the function didn't build — redeploy this exact folder
-and confirm a "live" function appears under Site -> Functions.
+1. Create a free Netlify account and get an Anthropic API key (as above).
+2. In `index.html`, change one line near the live code:
+   `const LIVE_ENDPOINT="/api/live";` -> `const LIVE_ENDPOINT="/.netlify/functions/live";`
+3. Drag this folder onto the Netlify dashboard, or connect a GitHub repo.
+4. In Site settings -> Environment variables, add `ANTHROPIC_API_KEY`.
 
 ## GitHub Pages (free, but no live scores)
 
