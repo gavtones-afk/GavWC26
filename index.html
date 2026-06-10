@@ -90,6 +90,9 @@
   .slab:hover{transform:translateY(-2px);border-color:var(--line2);box-shadow:var(--shadow)}
   .slab .topline{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);font-weight:700;margin-bottom:9px}
   .gtag{background:var(--ink3);border:1px solid var(--line);border-radius:6px;padding:2px 7px;font-size:10px;letter-spacing:.5px;color:var(--text)}
+  .tv{font-size:9.5px;font-weight:800;letter-spacing:.5px;padding:2px 6px;border-radius:5px;border:1px solid var(--line2)}
+  .tv.bbc{color:#9fd0ff;border-color:rgba(159,208,255,.45);background:rgba(159,208,255,.10)}
+  .tv.itv{color:#ffd24d;border-color:rgba(255,210,77,.45);background:rgba(255,210,77,.10)}
   .venue{margin-left:auto;text-align:right;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
   .side{display:flex;align-items:center;gap:9px;min-width:0}
@@ -179,36 +182,6 @@
   .note{font-size:12px;color:var(--muted);background:var(--ink2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.5;margin:14px 0}
   .note b{color:var(--text)}
   .empty{text-align:center;color:var(--muted);padding:40px 10px;font-size:14px}
-  .moon{font-size:13px;vertical-align:middle}
-
-  /* ===== Stats ===== */
-  .stathero{background:linear-gradient(135deg,var(--ink3),#0d1322);border:1px solid var(--line);border-radius:var(--r);padding:22px 18px;margin:14px 0;text-align:center;position:relative;overflow:hidden}
-  .stathero::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 130% at 50% -25%,rgba(22,198,107,.20),transparent 60%);pointer-events:none}
-  .stathero .big{font-family:Anton;font-size:66px;line-height:.9;letter-spacing:2px;
-    background:linear-gradient(90deg,#fff,var(--grass));-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
-  .stathero .lbl{font-size:11px;letter-spacing:3px;color:var(--muted);font-weight:800;text-transform:uppercase;margin-top:8px}
-  .stathero .sub{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.4}
-  .lead{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r);padding:2px 4px 8px;margin-bottom:14px}
-  .lead h3{font-family:Anton;font-weight:400;font-size:15px;letter-spacing:1px;margin:11px 12px 6px;display:flex;align-items:center;gap:8px}
-  .lead h3 .tagicon{font-size:15px}
-  .lrow{display:flex;align-items:center;gap:10px;padding:9px 12px;position:relative}
-  .lrow + .lrow{border-top:1px solid var(--line)}
-  .lrow .rk{font-family:Anton;font-size:14px;color:var(--muted);width:20px;text-align:center}
-  .lrow.top{background:rgba(255,197,61,.06)} .lrow.top .rk{color:var(--gold)}
-  .lrow .fl{font-size:20px}
-  .lrow .pn{min-width:0;flex:1}
-  .lrow .who{font-weight:700;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .lrow .tm{font-size:11px;color:var(--muted);font-weight:600}
-  .lrow .val{font-family:Anton;font-size:19px;letter-spacing:1px}
-  .lrow .bar{position:absolute;left:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--grass),transparent)}
-  .pips{display:flex;gap:3px;align-items:center}
-  .pip{width:8px;height:12px;border-radius:2px;display:inline-block}
-  .pip.y{background:var(--gold)} .pip.r{background:var(--live)}
-  .statgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .csrow{display:flex;align-items:center;gap:8px;padding:8px 12px;font-weight:700;font-size:13.5px}
-  .csrow + .csrow{border-top:1px solid var(--line)}
-  .csrow .val{margin-left:auto;font-family:Anton;font-size:17px}
-  @media(max-width:520px){.statgrid{grid-template-columns:1fr}.stathero .big{font-size:54px}}
 
   /* toasts */
   .toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:90;display:flex;flex-direction:column;gap:8px;width:min(440px,92%)}
@@ -295,83 +268,55 @@ const TEAMS = {
 };
 const GROUPS = "ABCDEFGHIJKL".split("");
 
+/* UK broadcaster per match (group stage). Source: published BBC/ITV split.
+   To change one later, just edit its line. Knockout picks are TBC, so they're
+   left out and simply show no badge until you add them. */
+const TVUK = {
+  m1:"ITV", m2:"ITV", m3:"BBC", m4:"BBC", m5:"ITV", m6:"BBC", m7:"BBC", m8:"ITV",
+  m9:"ITV", m10:"ITV", m11:"BBC", m12:"ITV", m13:"ITV", m14:"BBC", m15:"ITV", m16:"BBC",
+  m17:"BBC", m18:"BBC", m19:"ITV", m20:"BBC", m21:"BBC", m22:"ITV", m23:"ITV", m24:"BBC",
+  m25:"BBC", m26:"ITV", m27:"ITV", m28:"BBC", m29:"BBC", m30:"ITV", m31:"ITV", m32:"ITV",
+  m33:"BBC", m34:"ITV", m35:"BBC", m36:"BBC", m37:"BBC", m38:"ITV", m39:"BBC", m40:"ITV",
+  m41:"BBC", m42:"BBC", m43:"ITV", m44:"ITV", m45:"ITV", m46:"BBC", m47:"BBC", m48:"ITV",
+  m49:"ITV", m50:"ITV", m51:"BBC", m52:"BBC", m53:"BBC", m54:"BBC", m55:"BBC", m56:"BBC",
+  m57:"BBC", m58:"BBC", m59:"ITV", m60:"ITV", m61:"ITV", m62:"ITV", m63:"ITV", m64:"ITV",
+  m65:"BBC", m66:"BBC", m67:"ITV", m68:"ITV", m69:"BBC", m70:"BBC", m71:"BBC", m72:"BBC",
+};
+
 /* Seeded fixtures with confirmed UK kick-off times (stored UTC).
    Covers the opener + the documented first two match-weeks incl. all
    home nations, England (×2), Scotland, and the marquee sides.
    id, stage, group, h, a, venue, t(UTC ISO) */
 let MATCHES = [
+  // Matchday 1 — opener
   {id:"m1", stage:"group", group:"A", h:"MEX", a:"RSA", venue:"azteca", t:"2026-06-11T19:00:00Z"},
-  {id:"m2", stage:"group", group:"A", h:"KOR", a:"CZE", venue:"akron", t:"2026-06-12T02:00:00Z"},
-  {id:"m3", stage:"group", group:"B", h:"CAN", a:"BIH", venue:"bmo", t:"2026-06-12T19:00:00Z"},
-  {id:"m4", stage:"group", group:"D", h:"USA", a:"PAR", venue:"sofi", t:"2026-06-13T01:00:00Z"},
-  {id:"m5", stage:"group", group:"B", h:"QAT", a:"SUI", venue:"levis", t:"2026-06-13T19:00:00Z"},
-  {id:"m6", stage:"group", group:"C", h:"BRA", a:"MAR", venue:"metlife", t:"2026-06-13T22:00:00Z"},
-  {id:"m7", stage:"group", group:"C", h:"HAI", a:"SCO", venue:"gillette", t:"2026-06-14T01:00:00Z"},
-  {id:"m8", stage:"group", group:"D", h:"AUS", a:"TUR", venue:"bcplace", t:"2026-06-14T04:00:00Z"},
-  {id:"m9", stage:"group", group:"E", h:"GER", a:"CUW", venue:"nrg", t:"2026-06-14T17:00:00Z"},
-  {id:"m10", stage:"group", group:"F", h:"NED", a:"JPN", venue:"att", t:"2026-06-14T20:00:00Z"},
-  {id:"m11", stage:"group", group:"E", h:"CIV", a:"ECU", venue:"linc", t:"2026-06-14T23:00:00Z"},
-  {id:"m12", stage:"group", group:"F", h:"SWE", a:"TUN", venue:"akron", t:"2026-06-15T02:00:00Z"},
-  {id:"m13", stage:"group", group:"H", h:"ESP", a:"CPV", venue:"mbenz", t:"2026-06-15T16:00:00Z"},
-  {id:"m14", stage:"group", group:"G", h:"BEL", a:"EGY", venue:"lumen", t:"2026-06-15T19:00:00Z"},
-  {id:"m15", stage:"group", group:"H", h:"KSA", a:"URU", venue:"hardrock", t:"2026-06-15T22:00:00Z"},
-  {id:"m16", stage:"group", group:"G", h:"IRN", a:"NZL", venue:"sofi", t:"2026-06-16T01:00:00Z"},
-  {id:"m17", stage:"group", group:"I", h:"FRA", a:"SEN", venue:"metlife", t:"2026-06-16T19:00:00Z"},
-  {id:"m18", stage:"group", group:"I", h:"IRQ", a:"NOR", venue:"gillette", t:"2026-06-16T22:00:00Z"},
-  {id:"m19", stage:"group", group:"J", h:"ARG", a:"ALG", venue:"arrowhead", t:"2026-06-17T01:00:00Z"},
-  {id:"m20", stage:"group", group:"J", h:"AUT", a:"JOR", venue:"levis", t:"2026-06-17T04:00:00Z"},
-  {id:"m21", stage:"group", group:"K", h:"POR", a:"COD", venue:"nrg", t:"2026-06-17T17:00:00Z"},
-  {id:"m22", stage:"group", group:"L", h:"ENG", a:"CRO", venue:"att", t:"2026-06-17T20:00:00Z"},
-  {id:"m23", stage:"group", group:"L", h:"GHA", a:"PAN", venue:"bmo", t:"2026-06-17T23:00:00Z"},
-  {id:"m24", stage:"group", group:"K", h:"UZB", a:"COL", venue:"azteca", t:"2026-06-18T02:00:00Z"},
-  {id:"m25", stage:"group", group:"A", h:"CZE", a:"RSA", venue:"mbenz", t:"2026-06-18T16:00:00Z"},
-  {id:"m26", stage:"group", group:"B", h:"SUI", a:"BIH", venue:"sofi", t:"2026-06-18T19:00:00Z"},
-  {id:"m27", stage:"group", group:"B", h:"CAN", a:"QAT", venue:"bcplace", t:"2026-06-18T22:00:00Z"},
-  {id:"m28", stage:"group", group:"A", h:"MEX", a:"KOR", venue:"akron", t:"2026-06-19T01:00:00Z"},
-  {id:"m29", stage:"group", group:"D", h:"USA", a:"AUS", venue:"lumen", t:"2026-06-19T19:00:00Z"},
-  {id:"m30", stage:"group", group:"C", h:"SCO", a:"MAR", venue:"gillette", t:"2026-06-19T22:00:00Z"},
-  {id:"m31", stage:"group", group:"C", h:"BRA", a:"HAI", venue:"linc", t:"2026-06-20T00:30:00Z"},
-  {id:"m32", stage:"group", group:"D", h:"TUR", a:"PAR", venue:"levis", t:"2026-06-20T03:00:00Z"},
-  {id:"m33", stage:"group", group:"F", h:"NED", a:"SWE", venue:"nrg", t:"2026-06-20T17:00:00Z"},
-  {id:"m34", stage:"group", group:"E", h:"GER", a:"CIV", venue:"bmo", t:"2026-06-20T20:00:00Z"},
-  {id:"m35", stage:"group", group:"E", h:"ECU", a:"CUW", venue:"arrowhead", t:"2026-06-21T00:00:00Z"},
-  {id:"m36", stage:"group", group:"F", h:"TUN", a:"JPN", venue:"bbva", t:"2026-06-21T04:00:00Z"},
-  {id:"m37", stage:"group", group:"H", h:"ESP", a:"KSA", venue:"mbenz", t:"2026-06-21T16:00:00Z"},
-  {id:"m38", stage:"group", group:"G", h:"BEL", a:"IRN", venue:"sofi", t:"2026-06-21T19:00:00Z"},
-  {id:"m39", stage:"group", group:"H", h:"URU", a:"CPV", venue:"hardrock", t:"2026-06-21T22:00:00Z"},
-  {id:"m40", stage:"group", group:"G", h:"NZL", a:"EGY", venue:"bcplace", t:"2026-06-22T01:00:00Z"},
-  {id:"m41", stage:"group", group:"J", h:"ARG", a:"AUT", venue:"att", t:"2026-06-22T17:00:00Z"},
-  {id:"m42", stage:"group", group:"I", h:"FRA", a:"IRQ", venue:"linc", t:"2026-06-22T21:00:00Z"},
-  {id:"m43", stage:"group", group:"I", h:"NOR", a:"SEN", venue:"metlife", t:"2026-06-23T00:00:00Z"},
-  {id:"m44", stage:"group", group:"J", h:"JOR", a:"ALG", venue:"levis", t:"2026-06-23T03:00:00Z"},
-  {id:"m45", stage:"group", group:"K", h:"POR", a:"UZB", venue:"nrg", t:"2026-06-23T17:00:00Z"},
-  {id:"m46", stage:"group", group:"L", h:"ENG", a:"GHA", venue:"gillette", t:"2026-06-23T20:00:00Z"},
-  {id:"m47", stage:"group", group:"L", h:"PAN", a:"CRO", venue:"bmo", t:"2026-06-23T23:00:00Z"},
-  {id:"m48", stage:"group", group:"K", h:"COL", a:"COD", venue:"akron", t:"2026-06-24T02:00:00Z"},
-  {id:"m49", stage:"group", group:"B", h:"SUI", a:"CAN", venue:"bcplace", t:"2026-06-24T19:00:00Z"},
-  {id:"m50", stage:"group", group:"B", h:"BIH", a:"QAT", venue:"lumen", t:"2026-06-24T19:00:00Z"},
-  {id:"m51", stage:"group", group:"C", h:"SCO", a:"BRA", venue:"hardrock", t:"2026-06-24T22:00:00Z"},
-  {id:"m52", stage:"group", group:"C", h:"MAR", a:"HAI", venue:"mbenz", t:"2026-06-24T22:00:00Z"},
-  {id:"m53", stage:"group", group:"A", h:"RSA", a:"KOR", venue:"bbva", t:"2026-06-25T01:00:00Z"},
-  {id:"m54", stage:"group", group:"A", h:"CZE", a:"MEX", venue:"azteca", t:"2026-06-25T01:00:00Z"},
-  {id:"m55", stage:"group", group:"E", h:"CUW", a:"CIV", venue:"linc", t:"2026-06-25T20:00:00Z"},
-  {id:"m56", stage:"group", group:"E", h:"ECU", a:"GER", venue:"metlife", t:"2026-06-25T20:00:00Z"},
-  {id:"m57", stage:"group", group:"F", h:"JPN", a:"SWE", venue:"att", t:"2026-06-25T23:00:00Z"},
-  {id:"m58", stage:"group", group:"F", h:"TUN", a:"NED", venue:"arrowhead", t:"2026-06-25T23:00:00Z"},
-  {id:"m59", stage:"group", group:"D", h:"PAR", a:"AUS", venue:"levis", t:"2026-06-26T02:00:00Z"},
-  {id:"m60", stage:"group", group:"D", h:"TUR", a:"USA", venue:"sofi", t:"2026-06-26T02:00:00Z"},
-  {id:"m61", stage:"group", group:"I", h:"NOR", a:"FRA", venue:"gillette", t:"2026-06-26T19:00:00Z"},
-  {id:"m62", stage:"group", group:"I", h:"SEN", a:"IRQ", venue:"bmo", t:"2026-06-26T19:00:00Z"},
-  {id:"m63", stage:"group", group:"H", h:"CPV", a:"KSA", venue:"hardrock", t:"2026-06-27T00:00:00Z"},
-  {id:"m64", stage:"group", group:"H", h:"URU", a:"ESP", venue:"akron", t:"2026-06-27T00:00:00Z"},
-  {id:"m65", stage:"group", group:"G", h:"EGY", a:"IRN", venue:"lumen", t:"2026-06-27T03:00:00Z"},
-  {id:"m66", stage:"group", group:"G", h:"NZL", a:"BEL", venue:"bcplace", t:"2026-06-27T03:00:00Z"},
-  {id:"m67", stage:"group", group:"L", h:"PAN", a:"ENG", venue:"metlife", t:"2026-06-27T21:00:00Z"},
-  {id:"m68", stage:"group", group:"L", h:"CRO", a:"GHA", venue:"mbenz", t:"2026-06-27T21:00:00Z"},
-  {id:"m69", stage:"group", group:"K", h:"COL", a:"POR", venue:"hardrock", t:"2026-06-27T23:30:00Z"},
-  {id:"m70", stage:"group", group:"K", h:"COD", a:"UZB", venue:"mbenz", t:"2026-06-27T23:30:00Z"},
-  {id:"m71", stage:"group", group:"J", h:"ALG", a:"AUT", venue:"arrowhead", t:"2026-06-28T02:00:00Z"},
-  {id:"m72", stage:"group", group:"J", h:"ARG", a:"JOR", venue:"att", t:"2026-06-28T02:00:00Z"},
+  // Round 2 of fixtures (documented kick-offs)
+  {id:"m25", stage:"group", group:"I", h:"FRA", a:"SEN", venue:"metlife", t:"2026-06-16T19:00:00Z"},
+  {id:"m26", stage:"group", group:"I", h:"IRQ", a:"NOR", venue:"gillette", t:"2026-06-16T22:00:00Z"},
+  {id:"m27", stage:"group", group:"J", h:"ARG", a:"ALG", venue:"arrowhead", t:"2026-06-17T01:00:00Z"},
+  {id:"m28", stage:"group", group:"J", h:"AUT", a:"JOR", venue:"levis", t:"2026-06-17T04:00:00Z"},
+  {id:"m29", stage:"group", group:"K", h:"POR", a:"COD", venue:"nrg", t:"2026-06-17T17:00:00Z"},
+  {id:"m30", stage:"group", group:"L", h:"ENG", a:"CRO", venue:"att", t:"2026-06-17T20:00:00Z"},
+  {id:"m31", stage:"group", group:"L", h:"GHA", a:"PAN", venue:"bmo", t:"2026-06-17T23:00:00Z"},
+  {id:"m32", stage:"group", group:"K", h:"UZB", a:"COL", venue:"azteca", t:"2026-06-18T02:00:00Z"},
+  {id:"m33", stage:"group", group:"A", h:"CZE", a:"RSA", venue:"mbenz", t:"2026-06-18T16:00:00Z"},
+  {id:"m34", stage:"group", group:"B", h:"SUI", a:"BIH", venue:"sofi", t:"2026-06-18T19:00:00Z"},
+  {id:"m35", stage:"group", group:"B", h:"CAN", a:"QAT", venue:"bcplace", t:"2026-06-18T22:00:00Z"},
+  {id:"m36", stage:"group", group:"A", h:"MEX", a:"KOR", venue:"akron", t:"2026-06-19T02:00:00Z"},
+  // Round 3 of fixtures
+  {id:"m49", stage:"group", group:"J", h:"ARG", a:"AUT", venue:"att", t:"2026-06-22T17:00:00Z"},
+  {id:"m50", stage:"group", group:"I", h:"FRA", a:"IRQ", venue:"linc", t:"2026-06-22T21:00:00Z"},
+  {id:"m51", stage:"group", group:"I", h:"NOR", a:"SEN", venue:"metlife", t:"2026-06-23T00:00:00Z"},
+  {id:"m52", stage:"group", group:"J", h:"JOR", a:"ALG", venue:"levis", t:"2026-06-23T03:00:00Z"},
+  {id:"m53", stage:"group", group:"K", h:"POR", a:"UZB", venue:"nrg", t:"2026-06-23T17:00:00Z"},
+  {id:"m54", stage:"group", group:"L", h:"ENG", a:"GHA", venue:"gillette", t:"2026-06-23T20:00:00Z"},
+  {id:"m55", stage:"group", group:"L", h:"PAN", a:"CRO", venue:"bmo", t:"2026-06-23T23:00:00Z"},
+  {id:"m56", stage:"group", group:"K", h:"COL", a:"COD", venue:"akron", t:"2026-06-24T02:00:00Z"},
+  {id:"m57", stage:"group", group:"B", h:"SUI", a:"CAN", venue:"bcplace", t:"2026-06-24T19:00:00Z"},
+  {id:"m58", stage:"group", group:"B", h:"BIH", a:"QAT", venue:"lumen", t:"2026-06-24T19:00:00Z"},
+  {id:"m59", stage:"group", group:"C", h:"SCO", a:"BRA", venue:"hardrock", t:"2026-06-24T22:00:00Z"},
+  {id:"m60", stage:"group", group:"C", h:"MAR", a:"HAI", venue:"mbenz", t:"2026-06-24T22:00:00Z"},
+  {id:"m61", stage:"group", group:"A", h:"CZE", a:"MEX", venue:"azteca", t:"2026-06-25T00:00:00Z"},
 ];
 
 /* Knockout scaffold — venues + confirmed UK kick-off times where known.
@@ -393,7 +338,7 @@ const KNOCKOUT = [
 /* ============================================================
    STATE  (persisted via window.storage when in Claude; memory fallback)
    ============================================================ */
-const DEFAULT_STATE = { followTeams:[], followMatches:[], notify:false, lastSeen:{}, refreshedAt:null, stats:{} };
+const DEFAULT_STATE = { followTeams:[], followMatches:[], notify:false, lastSeen:{}, refreshedAt:null };
 let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
 const mem = {}; // fallback store
 
@@ -487,7 +432,7 @@ function nextFollowed(){
    RENDER
    ============================================================ */
 const view = document.getElementById("view");
-const TABS = [["today","Today / Live"],["fixtures","Fixtures"],["groups","Groups"],["stats","Stats"],["knockout","Knockout"],["teams","Teams"],["mine","Following"],["info","About"]];
+const TABS = [["today","Today / Live"],["fixtures","Fixtures"],["groups","Groups"],["knockout","Knockout"],["teams","Teams"],["mine","Following"],["info","About"]];
 let activeTab = "today";
 
 function renderTabs(){
@@ -505,8 +450,7 @@ function slabHTML(m){
   const fwd=isFollowedMatch(m);
   let mid;
   if(st==="upcoming"){
-    const late=isLateUK(m.t);
-    mid=`<div class="ko">${fmtUK(m.t)}${late?' <span class="moon" title="Unsociable UK kick-off (after midnight)">🌙</span>':''}<small>${fmtLocal(m.t,v.tz)} local</small></div>`;
+    mid=`<div class="ko">${fmtUK(m.t)}<small>${fmtLocal(m.t,v.tz)} local</small></div>`;
   } else {
     const sc=m.score?`${m.score[0]}–${m.score[1]}`:"0–0";
     mid=`<div class="score">${sc}</div>`;
@@ -520,6 +464,7 @@ function slabHTML(m){
     <button class="followbtn" data-fav="${m.id}" data-on="${fwd?1:0}" title="Follow match">★</button>
     <div class="topline">
       <span class="gtag">${m.stage==="group"?"Group "+m.group:esc(m.round||"Knockout")}</span>
+      ${TVUK[m.id]?`<span class="tv ${TVUK[m.id].toLowerCase()}" title="UK broadcaster">${TVUK[m.id]}</span>`:""}
       ${statusLine}
       <span class="venue">${esc(v.n)} · ${esc(v.city)} ${v.country}</span>
     </div>
@@ -534,7 +479,7 @@ function slabHTML(m){
         <span class="nm"><span class="code">${esc(m.a)}</span><span class="full">${esc(nm(m.a))}</span></span>
       </div>
     </div>
-    ${st==="upcoming"&&isLateUK(m.t)?`<div class="unsocial" title="Unsociable UK kick-off (after midnight)"></div>`:""}
+    ${st==="upcoming"&&isLateUK(m.t)?`<div class="unsocial" title="Late-night UK kick-off"></div>`:""}
   </div>`;
 }
 
@@ -568,7 +513,7 @@ function renderFixtures(){
     list=list.filter(m=>[nm(m.h),nm(m.a),m.h,m.a,venue(m.venue).city,venue(m.venue).n].join(" ").toLowerCase().includes(q)); }
   // group by UK day
   let cur=""; let body="";
-  if(!list.length) body=`<div class="empty">No fixtures match that filter. Try clearing the search or group filter.</div>`;
+  if(!list.length) body=`<div class="empty">No fixtures match that. Seeded schedule covers the first weeks; tap “Live” to pull the rest.</div>`;
   list.forEach(m=>{ const k=ukDayKey(m.t); if(k!==cur){cur=k; body+=`<div class="day">${ukDayLabel(m.t)}</div>`;} body+=slabHTML(m); });
   view.innerHTML=h+body;
   // group pills
@@ -646,19 +591,16 @@ function renderInfo(){
   view.innerHTML=`
   <h2 class="sec">How this works</h2>
   <div class="note">
-    <b>Built-in schedule.</b> The full group stage — all 72 matches across 12 groups — ships with confirmed venues and UK kick-off times. Everything works offline. Knockout fixtures fill in via Live once the bracket is set.
+    <b>Built-in schedule.</b> The opener plus the first two match-weeks (all three host nations, England ×2, Scotland, and every marquee side) ship with confirmed venues and UK kick-off times. Everything works offline.
   </div>
   <div class="note">
-    <b>Live updates.</b> Tap <b>Live</b> (top right) to pull current scores, results and standings. With a free football-data.org token set on your host these are reliable; an optional AI key adds the Golden Boot, assists and cards leaderboards. The app tells you exactly what's connected, and what to fix if not.
+    <b>Live updates.</b> Tap <b>Live</b> (top right) to pull current scores, statuses, goalscorers and cards, and to fill in later rounds. This searches the web in real time, so depth depends on what's published at that moment — scores and results are reliable; minute-by-minute events fill in where available.
   </div>
   <div class="note">
     <b>Alerts.</b> Turn on 🔔 to get a heads-up when a match you follow is about to kick off, and when goals land during a refresh. Browser alerts work while this is open in a tab; for lock-screen push you'd deploy it as an installed app (the file is ready for that).
   </div>
   <div class="note">
-    <b>Stats.</b> The Stats tab tracks total tournament goals (including extra time), clean sheets, the Golden Boot race, assists and bookings. Goals and clean sheets are calculated from results so they're always exact; scorers, assists and cards come from the live feed and grow as matches are played.
-  </div>
-  <div class="note">
-    <b>Times.</b> Everything shows in UK time first, with the venue's local time alongside. A 🌙 by the kick-off and a pink bar under a match flag an unsociable UK start (after midnight, e.g. a 5am kick-off) so you can plan sleep around it.
+    <b>Times.</b> Everything shows in UK time first, with the venue's local time alongside. A pink bar under a match flags an unsociable UK kick-off (midnight–7am) so you can plan sleep around it.
   </div>
   <div class="note">
     <b>Following.</b> Star a team to auto-follow all its matches, or star individual matches. Export your personal schedule to any calendar app with the .ics button on the Following tab.
@@ -666,104 +608,8 @@ function renderInfo(){
   <div class="note muted">Data verified against FIFA, ESPN, Sky Sports and Al Jazeera on 9 Jun 2026. The 2026 World Cup runs 11 Jun – 19 Jul across the USA, Canada and Mexico. Final: MetLife Stadium, 8:00pm UK, 19 Jul.</div>`;
 }
 
-/* ============================================================
-   STATS — totals & clean sheets computed from results (exact);
-   scorers / assists / cards come from the live feed.
-   ============================================================ */
-function computeTotals(){
-  let goals=0, played=0;
-  MATCHES.forEach(m=>{ if(m.score){ goals+=(+m.score[0]||0)+(+m.score[1]||0); if(matchStatus(m)==="ft") played++; }});
-  return {goals,played};
-}
-function teamCleanSheets(){
-  const cs={};
-  MATCHES.forEach(m=>{ if(m.score && matchStatus(m)==="ft"){
-    if((+m.score[1]||0)===0) cs[m.h]=(cs[m.h]||0)+1;
-    if((+m.score[0]||0)===0) cs[m.a]=(cs[m.a]||0)+1;
-  }});
-  return Object.entries(cs).map(([c,n])=>({c,n})).sort((a,b)=>b.n-a.n);
-}
-function aggFromEvents(){ // fallback scorers/cards from any match events we already hold
-  const sc={}, cd={};
-  MATCHES.forEach(m=>(m.events||[]).forEach(e=>{
-    if(!e.player) return;
-    const key=e.player+"|"+(e.team||"");
-    if(e.type==="goal"){ (sc[key]=sc[key]||{player:e.player,team:e.team,goals:0}).goals++; }
-    if(e.type==="yellow"||e.type==="red"){ const r=cd[key]=cd[key]||{player:e.player,team:e.team,yellow:0,red:0}; r[e.type]++; }
-  }));
-  return {scorers:Object.values(sc).sort((a,b)=>b.goals-a.goals),
-          cards:Object.values(cd).sort((a,b)=>(b.red*2+b.yellow)-(a.red*2+a.yellow))};
-}
-function flagOf(t){ const c=code(t); return c?fl(c):"⚽"; }
-function teamName(t){ const c=code(t); return c?nm(c):(t||""); }
-
-function renderStats(){
-  const tot=computeTotals();
-  const S=state.stats||{};
-  const agg=aggFromEvents();
-  const scorers=(S.scorers&&S.scorers.length)?S.scorers:agg.scorers;
-  const assists=(S.assists&&S.assists.length)?S.assists:[];
-  const cards=(S.cards&&S.cards.length)?S.cards:agg.cards;
-  const cs=(S.cleanSheets&&S.cleanSheets.length)
-            ? S.cleanSheets.map(x=>({c:code(x.team)||x.team,n:x.count})).sort((a,b)=>b.n-a.n)
-            : teamCleanSheets();
-  const maxG=scorers.length?Math.max(...scorers.map(s=>+s.goals||0),1):1;
-  const asOf=state.refreshedAt?`Updated ${fmtUK(new Date(state.refreshedAt).toISOString(),true)} UK`:"Tap Live to pull player stats";
-
-  let h=`
-  <div class="stathero">
-    <div class="big" id="goalCounter">${tot.goals}</div>
-    <div class="lbl">Total tournament goals</div>
-    <div class="sub">Across ${tot.played} completed ${tot.played===1?"match":"matches"} · includes extra time (penalty shootouts not counted as goals)</div>
-  </div>
-
-  <div class="lead"><h3><span class="tagicon">👟</span> Golden Boot — top scorers</h3>`;
-  h+= scorers.length
-    ? scorers.slice(0,10).map((s,i)=>`<div class="lrow ${i===0?'top':''}">
-        <span class="rk">${i+1}</span><span class="fl">${flagOf(s.team)}</span>
-        <span class="pn"><div class="who">${esc(s.player||"")}</div><div class="tm">${esc(teamName(s.team))}</div></span>
-        <span class="val">${+s.goals||0}</span>
-        <span class="bar" style="width:${Math.round(((+s.goals||0)/maxG)*100)}%"></span></div>`).join("")
-    : `<div class="empty">The Golden Boot race starts on 11 June. Tap <b>Live</b> during matches to fill this in.</div>`;
-  h+=`</div>
-
-  <div class="statgrid">
-    <div class="lead"><h3><span class="tagicon">🅰️</span> Most assists</h3>`;
-  h+= assists.length
-    ? assists.slice(0,8).map((s,i)=>`<div class="lrow ${i===0?'top':''}"><span class="rk">${i+1}</span><span class="fl">${flagOf(s.team)}</span><span class="pn"><div class="who">${esc(s.player||"")}</div><div class="tm">${esc(teamName(s.team))}</div></span><span class="val">${+s.assists||0}</span></div>`).join("")
-    : `<div class="empty" style="padding:26px 10px">No assists recorded yet.</div>`;
-  h+=`</div>
-    <div class="lead"><h3><span class="tagicon">🧤</span> Clean sheets</h3>`;
-  h+= cs.length
-    ? cs.slice(0,8).map(x=>`<div class="csrow"><span class="fl">${fl(x.c)||"🧤"}</span> <span>${esc(nm(x.c)||x.c)}</span><span class="val">${x.n}</span></div>`).join("")
-    : `<div class="empty" style="padding:26px 10px">No clean sheets yet.</div>`;
-  h+=`</div>
-  </div>
-
-  <div class="lead"><h3><span class="tagicon">🟨</span> Discipline — most booked</h3>`;
-  h+= cards.length
-    ? cards.slice(0,10).map((c,i)=>`<div class="lrow">
-        <span class="rk">${i+1}</span><span class="fl">${flagOf(c.team)}</span>
-        <span class="pn"><div class="who">${esc(c.player||"")}</div><div class="tm">${esc(teamName(c.team))}</div></span>
-        <span class="pips">${"<span class='pip y'></span>".repeat(Math.min(+c.yellow||0,6))}${"<span class='pip r'></span>".repeat(Math.min(+c.red||0,2))}</span></div>`).join("")
-    : `<div class="empty">No yellows or reds yet. Bookings appear here once matches kick off.</div>`;
-  h+=`</div>
-
-  <div class="note muted">${asOf}. Total goals and clean sheets are calculated from results, so they're exact for every completed match. Scorers, assists and cards come from the live feed and fill in as the tournament unfolds.</div>`;
-
-  view.innerHTML=h;
-  animateCount("goalCounter",tot.goals);
-}
-function animateCount(id,to){
-  const e=document.getElementById(id); if(!e) return;
-  const reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(reduce || to<=0){ e.textContent=to; return; }
-  const dur=750, t0=performance.now();
-  (function step(t){ const p=Math.min(1,(t-t0)/dur); e.textContent=Math.round(to*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); })(t0);
-}
-
 function render(){
-  ({today:renderToday,fixtures:renderFixtures,groups:renderGroups,stats:renderStats,knockout:renderKnockout,teams:renderTeams,mine:renderMine,info:renderInfo}[activeTab])();
+  ({today:renderToday,fixtures:renderFixtures,groups:renderGroups,knockout:renderKnockout,teams:renderTeams,mine:renderMine,info:renderInfo}[activeTab])();
 }
 
 /* ============================================================
@@ -799,6 +645,7 @@ function openMatch(id){
     <div class="meta">
       <span class="chip">🇬🇧 <b>${fmtUK(m.t,true)}</b> UK</span>
       <span class="chip">📍 <b>${fmtLocal(m.t,v.tz)}</b> local</span>
+      ${TVUK[m.id]?`<span class="chip">📺 <b>${TVUK[m.id]}</b></span>`:""}
       <span class="chip">${st==="live"?'🔴 <b>'+(m.minute?esc(m.minute)+"'":"Live")+'</b>':st==="ft"?"<b>Full time</b>":isLateUK(m.t)?"🌙 <b>Late UK</b>":"⏳ <b>Upcoming</b>"}</span>
     </div>
     ${events}${lineups}
@@ -934,49 +781,31 @@ const refreshBtn=document.getElementById("refresh");
 let refreshing=false;
 refreshBtn.onclick=liveRefresh;
 
-// Serverless proxy paths (holds the API key server-side). The app tries each in turn,
-// so it works on Vercel (/api/live) and on Netlify (/.netlify/functions/live) with or
-// without the redirect.
-const LIVE_ENDPOINTS=["/api/live","/.netlify/functions/live"];
+// Your serverless proxy (holds the API key server-side). Default works on Vercel.
+// On Netlify, change to "/.netlify/functions/live".
+const LIVE_ENDPOINT="/api/live";
 
 async function fetchLive(ukToday){
-  // returns {ok, matches, stats, problem?}
-  // 1) Preferred: your serverless proxy — try each known path
-  let sawEndpoint=false;
-  for(const ep of LIVE_ENDPOINTS){
-    let res;
-    try{ res=await fetch(ep,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({date:ukToday})}); }
-    catch(e){ continue; } // network error on this path — try the next
-    if(res.status===404){ continue; } // function not at this path — try the next
-    sawEndpoint=true;
-    if(res.ok){
-      const d=await res.json();
-      const data = Array.isArray(d) ? {matches:d,stats:{}} : {matches:(d&&d.matches)||[],stats:(d&&d.stats)||{},source:(d&&d.source)||[]};
-      data.ok=true; return data;
-    }
-    // function reached but returned an error — diagnose it
-    let detail=""; try{ detail=(await res.json()).error||""; }catch(_){}
-    if(/no data source/i.test(detail)) return {ok:false, problem:"nosource", detail, matches:[], stats:{}};
-    if(/api[_ ]?key|token/i.test(detail) || res.status===500) return {ok:false, problem:"key", detail, matches:[], stats:{}};
-    return {ok:false, problem:"server", detail, matches:[], stats:{}};
-  }
-  if(sawEndpoint===false){ /* nothing answered — fall through to direct (preview) then report endpoint */ }
-  // 2) Fallback: direct call (only succeeds inside the Claude preview, not on a live site)
+  // 1) Preferred: your serverless proxy returns {matches:[...]}
   try{
-    const prompt=
-`Use web search for 2026 FIFA World Cup data as of ${ukToday}. Return ONLY a JSON object, no prose or markdown fences:`+
-`{"matches":[{"home":"<country>","away":"<country>","homeScore":<int|null>,"awayScore":<int|null>,"status":"live"|"ft"|"ht"|"upcoming","minute":"<string|null>","events":[{"team":"<country>","player":"<name>","minute":"<num>","type":"goal"|"yellow"|"red"|"sub"}]}],`+
-`"stats":{"scorers":[{"player":"<name>","team":"<country>","goals":<int>}],"assists":[{"player":"<name>","team":"<country>","assists":<int>}],"cards":[{"player":"<name>","team":"<country>","yellow":<int>,"red":<int>}],"cleanSheets":[{"team":"<country>","count":<int>}]}}. `+
-`"matches" = games live now or finished today; "stats" = tournament-wide leaders (top 10 each). Use full country names. If the tournament has not started, use empty arrays.`;
-    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:2200,messages:[{role:"user",content:prompt}],
-        tools:[{type:"web_search_20250305",name:"web_search"}]})});
-    const data=await res.json();
-    const text=(data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
-    const objStr=(text.match(/\{[\s\S]*\}/)||[null])[0];
-    const parsed=objStr?JSON.parse(objStr.replace(/```json|```/g,"").trim()):{};
-    return {ok:true, matches:parsed.matches||[], stats:parsed.stats||{}};
-  }catch(e){ return {ok:false, problem: sawEndpoint?"unreachable":"endpoint", matches:[], stats:{}}; }
+    const res=await fetch(LIVE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({date:ukToday})});
+    if(res.ok){ const d=await res.json(); if(Array.isArray(d)) return d; if(d&&Array.isArray(d.matches)) return d.matches; }
+  }catch(e){ /* proxy not deployed yet — try fallback */ }
+  // 2) Fallback: direct call (only works inside the Claude preview, not on a live site)
+  const prompt=
+`Use web search to find the live and finished 2026 FIFA World Cup matches for ${ukToday} (and any in progress now). `+
+`Return ONLY a JSON array, no prose, no markdown fences. Each element: `+
+`{"home":"<full country name>","away":"<full country name>","homeScore":<int|null>,"awayScore":<int|null>,`+
+`"status":"live"|"ft"|"ht"|"upcoming","minute":"<string|null>",`+
+`"events":[{"team":"<full country name>","player":"<name>","minute":"<num>","type":"goal"|"yellow"|"red"|"sub"}]}. `+
+`If no matches are live or finished today, return [].`;
+  const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,messages:[{role:"user",content:prompt}],
+      tools:[{type:"web_search_20250305",name:"web_search"}]})});
+  const data=await res.json();
+  const text=(data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
+  const jsonStr=(text.match(/\[[\s\S]*\]/)||[text])[0].replace(/```json|```/g,"").trim();
+  return JSON.parse(jsonStr);
 }
 
 async function liveRefresh(){
@@ -984,42 +813,25 @@ async function liveRefresh(){
   const txt=document.getElementById("refTxt"); txt.textContent="Updating…";
   try{
     const ukToday=new Intl.DateTimeFormat("en-GB",{timeZone:TZ_UK,weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());
-    const out=await fetchLive(ukToday);
-    txt.textContent="Live";
-    if(!out.ok){
-      const msg={
-        endpoint:"The live function isn't deployed. In your GitHub repo check that netlify/functions/live.js exists, and in Netlify check Site → Functions lists a 'live' function. If it's missing, the netlify folder didn't get uploaded.",
-        nosource:"The data function is running, but no data source is set. Add FOOTBALL_DATA_TOKEN (recommended) and/or ANTHROPIC_API_KEY in your host's environment variables, then redeploy.",
-        key:"The data function is running, but its API token isn't set on your host yet. Add it and redeploy.",
-        server:"The data function returned an error. Check its logs on your host.",
-        unreachable:"Couldn't reach the data function. The built-in schedule, standings and stats still work."
-      }[out.problem]||"Couldn't reach live data.";
-      toast("Live data unavailable", out.detail||msg, "");
-      refreshing=false; return;
-    }
+    const arr=await fetchLive(ukToday);
     let merged=0;
-    (out.matches||[]).forEach(r=>{ if(mergeLive(r)) merged++; });
-    if(out.stats && (out.stats.scorers||out.stats.assists||out.stats.cards||out.stats.cleanSheets)) state.stats=out.stats;
+    (arr||[]).forEach(r=>{ if(mergeLive(r)) merged++; });
     state.refreshedAt=Date.now(); saveState();
     render();
-    const hasStats=out.stats && ((out.stats.scorers&&out.stats.scorers.length)||(out.stats.cards&&out.stats.cards.length));
-    const src=(out.source&&out.source.length)?" · via "+out.source.join(" + "):"";
-    toast(merged||hasStats?"Updated":"Up to date",
-      merged||hasStats ? `${merged} match${merged===1?"":"es"} refreshed${hasStats?" · leaders updated":""}${src} · ${fmtUK(new Date().toISOString())} UK`
-      : `Connected${src} — no live matches right now. The tournament starts 11 June.`,"");
+    txt.textContent="Live";
+    toast(merged?"Updated":"Up to date", merged? `${merged} match${merged>1?"es":""} refreshed · ${fmtUK(new Date().toISOString())} UK` : "No live or finished matches found right now.","");
   }catch(e){
     txt.textContent="Live";
-    toast("Live data unavailable","Showing the built-in schedule. The data function couldn't be reached.","");
+    toast("Couldn't reach live data","Showing the built-in schedule. If you've just deployed, check the API key is set on your host.","");
   }
   refreshing=false;
 }
 
 const NAME2CODE=(()=>{ const m={}; Object.keys(TEAMS).forEach(c=>{ m[nm(c).toLowerCase()]=c; m[c.toLowerCase()]=c; });
   // a few aliases
-  Object.assign(m,{"usa":"USA","united states of america":"USA","united states":"USA","korea republic":"KOR","south korea":"KOR","republic of korea":"KOR",
+  Object.assign(m,{"usa":"USA","united states of america":"USA","korea republic":"KOR","south korea":"KOR",
    "ivory coast":"CIV","cote d'ivoire":"CIV","turkey":"TUR","türkiye":"TUR","czech republic":"CZE","czechia":"CZE",
-   "cape verde":"CPV","cabo verde":"CPV","bosnia and herzegovina":"BIH","dr congo":"COD","congo dr":"COD","congo":"COD",
-   "curacao":"CUW","ir iran":"IRN","iran":"IRN","saudi arabia":"KSA"}); return m; })();
+   "cape verde":"CPV","cabo verde":"CPV","bosnia and herzegovina":"BIH","dr congo":"COD","congo dr":"COD"}); return m; })();
 function code(name){ if(!name) return null; const k=String(name).toLowerCase().trim(); return NAME2CODE[k]||(TEAMS[name.toUpperCase()]?name.toUpperCase():null); }
 
 function mergeLive(r){
