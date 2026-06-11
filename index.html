@@ -491,25 +491,34 @@ function renderToday(){
 }
 
 let fxFilter={q:"",group:"all",mine:false};
+function fxList(){
+  let list = MATCHES.slice().sort((a,b)=>new Date(a.t)-new Date(b.t));
+  if(fxFilter.group!=="all") list=list.filter(m=>m.group===fxFilter.group);
+  if(fxFilter.mine) list=list.filter(isFollowedMatch);
+  if(fxFilter.q){ const q=fxFilter.q.toLowerCase(); list=list.filter(m=>[nm(m.h),nm(m.a),m.h,m.a,venue(m.venue).city,venue(m.venue).n].join(" ").toLowerCase().includes(q)); }
+  return list;
+}
+function renderFxResults(){
+  const box=document.getElementById("fxResults"); if(!box) return;
+  const list=fxList(); let cur=""; let body="";
+  if(!list.length) body=`<div class="empty">No fixtures match that filter. Try clearing the search or group filter.</div>`;
+  list.forEach(m=>{ const k=ukDayKey(m.t); if(k!==cur){cur=k; body+=`<div class="day">${ukDayLabel(m.t)}</div>`;} body+=slabHTML(m); });
+  box.innerHTML=body; bindSlabClicks(box);
+}
 function renderFixtures(){
   let h=`<div class="controls">
     <input class="search" id="fxq" placeholder="Search team or city…" value="${esc(fxFilter.q)}">
     <button class="pill" data-grp="all" aria-pressed="${fxFilter.group==='all'}">All groups</button>
     <button class="pill" data-mine aria-pressed="${fxFilter.mine}">★ My teams</button>
-  </div><div class="controls" id="grpPills"></div>`;
-  let list = MATCHES.slice().sort((a,b)=>new Date(a.t)-new Date(b.t));
-  if(fxFilter.group!=="all") list=list.filter(m=>m.group===fxFilter.group);
-  if(fxFilter.mine) list=list.filter(isFollowedMatch);
-  if(fxFilter.q){ const q=fxFilter.q.toLowerCase(); list=list.filter(m=>[nm(m.h),nm(m.a),m.h,m.a,venue(m.venue).city,venue(m.venue).n].join(" ").toLowerCase().includes(q)); }
-  let cur=""; let body="";
-  if(!list.length) body=`<div class="empty">No fixtures match that filter. Try clearing the search or group filter.</div>`;
-  list.forEach(m=>{ const k=ukDayKey(m.t); if(k!==cur){cur=k; body+=`<div class="day">${ukDayLabel(m.t)}</div>`;} body+=slabHTML(m); });
-  view.innerHTML=h+body;
+  </div><div class="controls" id="grpPills"></div><div id="fxResults"></div>`;
+  view.innerHTML=h;
   const gp=document.getElementById("grpPills");
   GROUPS.forEach(g=>{ const b=el(`<button class="pill" aria-pressed="${fxFilter.group===g}">Grp ${g}</button>`); b.onclick=()=>{fxFilter.group=fxFilter.group===g?"all":g; renderFixtures();}; gp.appendChild(b); });
-  document.getElementById("fxq").oninput=e=>{fxFilter.q=e.target.value; clearTimeout(window._fxt); window._fxt=setTimeout(renderFixtures,180);};
+  // typing updates only the results list, so the search box keeps focus
+  document.getElementById("fxq").oninput=e=>{ fxFilter.q=e.target.value; renderFxResults(); };
   view.querySelector("[data-grp='all']").onclick=()=>{fxFilter.group="all"; renderFixtures();};
   view.querySelector("[data-mine]").onclick=()=>{fxFilter.mine=!fxFilter.mine; renderFixtures();};
+  renderFxResults();
 }
 
 function renderGroups(){
