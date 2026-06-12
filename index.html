@@ -709,7 +709,7 @@ function exportICS(){ downloadICS(followedFixtures(),"wc26-my-matches.ics"); }
 
 /* ===== Live refresh (tries both proxy paths; football-data + optional AI) ===== */
 const refreshBtn=document.getElementById("refresh");
-let refreshing=false; refreshBtn.onclick=liveRefresh;
+let refreshing=false; refreshBtn.onclick=()=>liveRefresh(false);
 const LIVE_ENDPOINTS=["/api/live","/.netlify/functions/live"];
 
 async function fetchLive(ukToday){
@@ -729,7 +729,7 @@ async function fetchLive(ukToday){
   return {ok:false, problem: sawEndpoint?"unreachable":"endpoint", matches:[], stats:{}};
 }
 
-async function liveRefresh(){
+async function liveRefresh(silent){
   if(refreshing) return; refreshing=true;
   const txt=document.getElementById("refTxt"); txt.textContent="Updating…";
   try{
@@ -744,7 +744,7 @@ async function liveRefresh(){
         server:"The data function returned an error. Check its logs on your host.",
         unreachable:"Couldn't reach the data function. The built-in schedule, standings and stats still work."
       }[out.problem]||"Couldn't reach live data.";
-      toast("Live data unavailable", out.detail||msg, "");
+      if(!silent) toast("Live data unavailable", out.detail||msg, "");
       refreshing=false; return;
     }
     let merged=0; (out.matches||[]).forEach(r=>{ if(mergeLive(r)) merged++; });
@@ -752,8 +752,8 @@ async function liveRefresh(){
     state.refreshedAt=Date.now(); saveState(); render();
     const hasStats=out.stats && ((out.stats.scorers&&out.stats.scorers.length)||(out.stats.cards&&out.stats.cards.length));
     const src=(out.source&&out.source.length)?" · via "+out.source.join(" + "):"";
-    toast(merged||hasStats?"Updated":"Up to date", merged||hasStats ? `${merged} match${merged===1?"":"es"} refreshed${hasStats?" · leaders updated":""}${src} · ${fmtUK(new Date().toISOString())} UK` : `Connected${src} — no live matches right now. The tournament starts 11 June.`,"");
-  }catch(e){ txt.textContent="Live"; toast("Live data unavailable","Showing the built-in schedule. The data function couldn't be reached.",""); }
+    if(!silent) toast(merged||hasStats?"Updated":"Up to date", merged||hasStats ? `${merged} match${merged===1?"":"es"} refreshed${hasStats?" · leaders updated":""}${src} · ${fmtUK(new Date().toISOString())} UK` : `Connected${src} — no live matches right now. The tournament starts 11 June.`,"");
+  }catch(e){ txt.textContent="Live"; if(!silent) toast("Live data unavailable","Showing the built-in schedule. The data function couldn't be reached.",""); }
   refreshing=false;
 }
 
@@ -781,6 +781,9 @@ document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheet(); });
   await loadState();
   bell.dataset.on=state.notify?1:0; document.getElementById("bellTxt").textContent=state.notify?"Alerts on":"Alerts off";
   renderTabs(); render(); tick(); setInterval(tick,30000);
+  liveRefresh(true); // auto-pull live data on load, quietly
+  setInterval(()=>{ if(document.visibilityState==="visible") liveRefresh(true); }, 60000);
+  document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") liveRefresh(true); });
 })();
 if("serviceWorker" in navigator){ window.addEventListener("load",()=>{ navigator.serviceWorker.register("service-worker.js").catch(()=>{}); }); }
 </script>
